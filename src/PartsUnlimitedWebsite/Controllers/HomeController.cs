@@ -35,7 +35,8 @@ namespace PartsUnlimited.Controllers
             //if (TempData["Data"]!=null){
             //    var email = TempData["Data"].ToString();
             //}
-            
+            //var temp = HttpContext.Request.Query["email"];
+            //ViewBag.EmailID = temp;
             //string GetEmailValue = JsonConvert.DeserializeObject<Aspnetusers>(HttpContext.Session.GetString("UserEmail")).ToString();
             //if(HttpContext.Session.GetString("GetEmail")!=null)
             //{

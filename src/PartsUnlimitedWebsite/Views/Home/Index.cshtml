@@ -10,14 +10,11 @@
     </script>
 }
 
-@if (TempData["Data"] != null)
-{
-    TempData["Data"].ToString();
-}
 
-Welcome @Context.Session.GetString("UserEmail")
+welcome @Context.Session.GetString("UserEmail")
 
 @section prebody {
+    @ViewBag.EmailID
     <div class="hero-display">
         <div id="jumbotron-carousel" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
