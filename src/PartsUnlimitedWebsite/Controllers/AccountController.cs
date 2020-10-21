@@ -63,9 +63,9 @@ namespace PartsUnlimited.Controllers
             if (query != null)
             {
                 //TempData["Data"] = query.Email.ToString();  
-                HttpContext.Session.SetString("useremail", query.Email);
+                HttpContext.Session.SetString("UserEmail", query.Email);
                 
-                //var email=HttpContext.Session.GetString("UserEmail");                
+                var email=HttpContext.Session.GetString("UserEmail");                
                 return RedirectToAction("Index", "Home");
                 //return RedirectToAction("Login", "Account");
             }
