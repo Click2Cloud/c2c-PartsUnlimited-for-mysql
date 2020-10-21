@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="e7cde7f2-ee3a-482e-bd1a-7b2aa4eab658" name="Administrator@WIN-71U2SV66VNL 2020-06-15 04:09:18" runUser="WIN-71U2SV66VNL\Administrator" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2020-06-15T04:09:18.6916625-07:00" queuing="2020-06-15T04:09:18.6916633-07:00" start="2020-06-15T04:09:15.4102483-07:00" finish="2020-06-15T04:09:18.7694344-07:00" />
+  <TestSettings name="default" id="596ed024-d1f7-45ee-bae6-4267f421305a">
+    <Deployment runDeploymentRoot="Administrator_WIN-71U2SV66VNL_2020-06-15_04_09_18" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="ec315e0d-c0c9-4e62-b1b7-df2a410a7fc5" testId="69d8e18b-ebc9-4484-554f-b176ad73a4bd" testName="PartsUnlimited.Utils.ConfigurationExtensionsTests.TestStrings" computerName="WIN-71U2SV66VNL" duration="00:00:00.2590000" startTime="2020-06-15T04:09:18.6406322-07:00" endTime="2020-06-15T04:09:18.6406326-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ec315e0d-c0c9-4e62-b1b7-df2a410a7fc5" />
+    <UnitTestResult executionId="5fc91e88-dc82-4686-b2f0-50402332d3a7" testId="38a15182-0581-756f-a01d-e3255d154eb4" testName="PartsUnlimited.Search.StringContainsProductSearcherTests.SearchSuccess" computerName="WIN-71U2SV66VNL" duration="00:00:00.2980000" startTime="2020-06-15T04:09:18.6687732-07:00" endTime="2020-06-15T04:09:18.6687740-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5fc91e88-dc82-4686-b2f0-50402332d3a7" />
+    <UnitTestResult executionId="582fff86-01f9-4b08-b202-ca94ca65fc44" testId="153ae0b0-28a9-9f82-7249-ccd1c0d13f81" testName="PartsUnlimited.Utils.ContentDeliveryNetworkExtensionsTests.StyleTests" computerName="WIN-71U2SV66VNL" duration="00:00:00.0040000" startTime="2020-06-15T04:09:18.6441106-07:00" endTime="2020-06-15T04:09:18.6441114-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="582fff86-01f9-4b08-b202-ca94ca65fc44" />
+    <UnitTestResult executionId="7a1b1662-828b-43cf-b98c-2ca0322918df" testId="fd9c09f7-1870-bad4-2a66-8bb15fa8e245" testName="PartsUnlimited.Utils.ContentDeliveryNetworkConfigurationTests.ScriptStylesParse" computerName="WIN-71U2SV66VNL" duration="00:00:00.0030000" startTime="2020-06-15T04:09:18.6440149-07:00" endTime="2020-06-15T04:09:18.6440153-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7a1b1662-828b-43cf-b98c-2ca0322918df" />
+    <UnitTestResult executionId="25825f8f-6ff7-41c2-aa37-35bdfa6866ea" testId="d7bf9e76-405a-0f5f-f37f-54bea2bfce2c" testName="PartsUnlimited.Utils.ContentDeliveryNetworkConfigurationTests.ImageContentNull" computerName="WIN-71U2SV66VNL" duration="00:00:00.2550000" startTime="2020-06-15T04:09:18.6405873-07:00" endTime="2020-06-15T04:09:18.6405881-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="25825f8f-6ff7-41c2-aa37-35bdfa6866ea" />
+    <UnitTestResult executionId="7381cef1-bdeb-45ad-88e3-932813eea8dd" testId="28d7d95e-a890-762d-030d-25e88df0b36d" testName="PartsUnlimited.Utils.ContentDeliveryNetworkExtensionsTests.NoConfiguration" computerName="WIN-71U2SV66VNL" duration="00:00:00.0010000" startTime="2020-06-15T04:09:18.6441602-07:00" endTime="2020-06-15T04:09:18.6441610-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7381cef1-bdeb-45ad-88e3-932813eea8dd" />
+    <UnitTestResult executionId="e5f519aa-5e3c-485e-9cd8-2afbfce71a20" testId="7bd0c013-78fd-e0f1-6870-0c061a2e868a" testName="PartsUnlimited.Utils.ContentDeliveryNetworkExtensionsTests.WithConfiguration" computerName="WIN-71U2SV66VNL" duration="00:00:00.0040000" startTime="2020-06-15T04:09:18.6439432-07:00" endTime="2020-06-15T04:09:18.6439440-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e5f519aa-5e3c-485e-9cd8-2afbfce71a20" />
+    <UnitTestResult executionId="56f6cbea-2a93-4edd-8ae4-3cb1c6756a04" testId="0c0259f6-4120-c702-4d4a-711dba0a139a" testName="PartsUnlimited.Utils.ContentDeliveryNetworkConfigurationTests.ImageContent" computerName="WIN-71U2SV66VNL" duration="00:00:00.0010000" startTime="2020-06-15T04:09:18.6435088-07:00" endTime="2020-06-15T04:09:18.6435092-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="56f6cbea-2a93-4edd-8ae4-3cb1c6756a04" />
+    <UnitTestResult executionId="9bb17405-6529-4378-bb1f-ba9cb733a673" testId="942c5813-ee24-cb3c-4793-cc1455ec7f5d" testName="PartsUnlimited.Utils.ContentDeliveryNetworkExtensionsTests.ScriptTest" computerName="WIN-71U2SV66VNL" duration="00:00:00.2680000" startTime="2020-06-15T04:09:18.6337784-07:00" endTime="2020-06-15T04:09:18.6337835-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9bb17405-6529-4378-bb1f-ba9cb733a673" />
+    <UnitTestResult executionId="2534bb27-f957-4cbc-bdd9-be297e31be60" testId="d4a7620c-5dcf-49f5-e86e-9e15b8d9ccc5" testName="PartsUnlimited.Utils.ContentDeliveryNetworkExtensionsTests.AltTagDisplayed" computerName="WIN-71U2SV66VNL" duration="00:00:00.0010000" startTime="2020-06-15T04:09:18.6440023-07:00" endTime="2020-06-15T04:09:18.6440027-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2534bb27-f957-4cbc-bdd9-be297e31be60" />
+    <UnitTestResult executionId="ce78adca-9241-455f-bdef-1d58167834bb" testId="c226bdfe-8d42-0b8f-5998-95296b24a260" testName="PartsUnlimited.Utils.ContentDeliveryNetworkExtensionsTests.NullSrc" computerName="WIN-71U2SV66VNL" duration="00:00:00.0030000" startTime="2020-06-15T04:09:18.6631527-07:00" endTime="2020-06-15T04:09:18.6631543-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ce78adca-9241-455f-bdef-1d58167834bb" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="PartsUnlimited.Utils.ContentDeliveryNetworkExtensionsTests.NoConfiguration" storage="c:\users\administrator\source\repos\partsunlimited\test\partsunlimited.unittests\bin\release\netcoreapp2.2\partsunlimited.unittests.dll" id="28d7d95e-a890-762d-030d-25e88df0b36d">
+      <Execution id="7381cef1-bdeb-45ad-88e3-932813eea8dd" />
+      <TestMethod codeBase="C:\Users\Administrator\source\repos\PartsUnlimited\test\PartsUnlimited.UnitTests\bin\Release\netcoreapp2.2\PartsUnlimited.UnitTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="PartsUnlimited.UnitTests" name="PartsUnlimited.Utils.ContentDeliveryNetworkExtensionsTests.NoConfiguration" />
+    </UnitTest>
+    <UnitTest name="PartsUnlimited.Utils.ContentDeliveryNetworkExtensionsTests.WithConfiguration" storage="c:\users\administrator\source\repos\partsunlimited\test\partsunlimited.unittests\bin\release\netcoreapp2.2\partsunlimited.unittests.dll" id="7bd0c013-78fd-e0f1-6870-0c061a2e868a">
+      <Execution id="e5f519aa-5e3c-485e-9cd8-2afbfce71a20" />
+      <TestMethod codeBase="C:\Users\Administrator\source\repos\PartsUnlimited\test\PartsUnlimited.UnitTests\bin\Release\netcoreapp2.2\PartsUnlimited.UnitTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="PartsUnlimited.UnitTests" name="PartsUnlimited.Utils.ContentDeliveryNetworkExtensionsTests.WithConfiguration" />
+    </UnitTest>
+    <UnitTest name="PartsUnlimited.Utils.ConfigurationExtensionsTests.TestStrings" storage="c:\users\administrator\source\repos\partsunlimited\test\partsunlimited.unittests\bin\release\netcoreapp2.2\partsunlimited.unittests.dll" id="69d8e18b-ebc9-4484-554f-b176ad73a4bd">
+      <Execution id="ec315e0d-c0c9-4e62-b1b7-df2a410a7fc5" />
+      <TestMethod codeBase="C:\Users\Administrator\source\repos\PartsUnlimited\test\PartsUnlimited.UnitTests\bin\Release\netcoreapp2.2\PartsUnlimited.UnitTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="PartsUnlimited.UnitTests" name="PartsUnlimited.Utils.ConfigurationExtensionsTests.TestStrings" />
+    </UnitTest>
+    <UnitTest name="PartsUnlimited.Utils.ContentDeliveryNetworkConfigurationTests.ImageContent" storage="c:\users\administrator\source\repos\partsunlimited\test\partsunlimited.unittests\bin\release\netcoreapp2.2\partsunlimited.unittests.dll" id="0c0259f6-4120-c702-4d4a-711dba0a139a">
+      <Execution id="56f6cbea-2a93-4edd-8ae4-3cb1c6756a04" />
+      <TestMethod codeBase="C:\Users\Administrator\source\repos\PartsUnlimited\test\PartsUnlimited.UnitTests\bin\Release\netcoreapp2.2\PartsUnlimited.UnitTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="PartsUnlimited.UnitTests" name="PartsUnlimited.Utils.ContentDeliveryNetworkConfigurationTests.ImageContent" />
+    </UnitTest>
+    <UnitTest name="PartsUnlimited.Utils.ContentDeliveryNetworkExtensionsTests.StyleTests" storage="c:\users\administrator\source\repos\partsunlimited\test\partsunlimited.unittests\bin\release\netcoreapp2.2\partsunlimited.unittests.dll" id="153ae0b0-28a9-9f82-7249-ccd1c0d13f81">
+      <Execution id="582fff86-01f9-4b08-b202-ca94ca65fc44" />
+      <TestMethod codeBase="C:\Users\Administrator\source\repos\PartsUnlimited\test\PartsUnlimited.UnitTests\bin\Release\netcoreapp2.2\PartsUnlimited.UnitTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="PartsUnlimited.UnitTests" name="PartsUnlimited.Utils.ContentDeliveryNetworkExtensionsTests.StyleTests" />
+    </UnitTest>
+    <UnitTest name="PartsUnlimited.Utils.ContentDeliveryNetworkExtensionsTests.AltTagDisplayed" storage="c:\users\administrator\source\repos\partsunlimited\test\partsunlimited.unittests\bin\release\netcoreapp2.2\partsunlimited.unittests.dll" id="d4a7620c-5dcf-49f5-e86e-9e15b8d9ccc5">
+      <Execution id="2534bb27-f957-4cbc-bdd9-be297e31be60" />
+      <TestMethod codeBase="C:\Users\Administrator\source\repos\PartsUnlimited\test\PartsUnlimited.UnitTests\bin\Release\netcoreapp2.2\PartsUnlimited.UnitTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="PartsUnlimited.UnitTests" name="PartsUnlimited.Utils.ContentDeliveryNetworkExtensionsTests.AltTagDisplayed" />
+    </UnitTest>
+    <UnitTest name="PartsUnlimited.Search.StringContainsProductSearcherTests.SearchSuccess" storage="c:\users\administrator\source\repos\partsunlimited\test\partsunlimited.unittests\bin\release\netcoreapp2.2\partsunlimited.unittests.dll" id="38a15182-0581-756f-a01d-e3255d154eb4">
+      <Execution id="5fc91e88-dc82-4686-b2f0-50402332d3a7" />
+      <TestMethod codeBase="C:\Users\Administrator\source\repos\PartsUnlimited\test\PartsUnlimited.UnitTests\bin\Release\netcoreapp2.2\PartsUnlimited.UnitTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="PartsUnlimited.UnitTests" name="PartsUnlimited.Search.StringContainsProductSearcherTests.SearchSuccess" />
+    </UnitTest>
+    <UnitTest name="PartsUnlimited.Utils.ContentDeliveryNetworkConfigurationTests.ScriptStylesParse" storage="c:\users\administrator\source\repos\partsunlimited\test\partsunlimited.unittests\bin\release\netcoreapp2.2\partsunlimited.unittests.dll" id="fd9c09f7-1870-bad4-2a66-8bb15fa8e245">
+      <Execution id="7a1b1662-828b-43cf-b98c-2ca0322918df" />
+      <TestMethod codeBase="C:\Users\Administrator\source\repos\PartsUnlimited\test\PartsUnlimited.UnitTests\bin\Release\netcoreapp2.2\PartsUnlimited.UnitTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="PartsUnlimited.UnitTests" name="PartsUnlimited.Utils.ContentDeliveryNetworkConfigurationTests.ScriptStylesParse" />
+    </UnitTest>
+    <UnitTest name="PartsUnlimited.Utils.ContentDeliveryNetworkConfigurationTests.ImageContentNull" storage="c:\users\administrator\source\repos\partsunlimited\test\partsunlimited.unittests\bin\release\netcoreapp2.2\partsunlimited.unittests.dll" id="d7bf9e76-405a-0f5f-f37f-54bea2bfce2c">
+      <Execution id="25825f8f-6ff7-41c2-aa37-35bdfa6866ea" />
+      <TestMethod codeBase="C:\Users\Administrator\source\repos\PartsUnlimited\test\PartsUnlimited.UnitTests\bin\Release\netcoreapp2.2\PartsUnlimited.UnitTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="PartsUnlimited.UnitTests" name="PartsUnlimited.Utils.ContentDeliveryNetworkConfigurationTests.ImageContentNull" />
+    </UnitTest>
+    <UnitTest name="PartsUnlimited.Utils.ContentDeliveryNetworkExtensionsTests.NullSrc" storage="c:\users\administrator\source\repos\partsunlimited\test\partsunlimited.unittests\bin\release\netcoreapp2.2\partsunlimited.unittests.dll" id="c226bdfe-8d42-0b8f-5998-95296b24a260">
+      <Execution id="ce78adca-9241-455f-bdef-1d58167834bb" />
+      <TestMethod codeBase="C:\Users\Administrator\source\repos\PartsUnlimited\test\PartsUnlimited.UnitTests\bin\Release\netcoreapp2.2\PartsUnlimited.UnitTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="PartsUnlimited.UnitTests" name="PartsUnlimited.Utils.ContentDeliveryNetworkExtensionsTests.NullSrc" />
+    </UnitTest>
+    <UnitTest name="PartsUnlimited.Utils.ContentDeliveryNetworkExtensionsTests.ScriptTest" storage="c:\users\administrator\source\repos\partsunlimited\test\partsunlimited.unittests\bin\release\netcoreapp2.2\partsunlimited.unittests.dll" id="942c5813-ee24-cb3c-4793-cc1455ec7f5d">
+      <Execution id="9bb17405-6529-4378-bb1f-ba9cb733a673" />
+      <TestMethod codeBase="C:\Users\Administrator\source\repos\PartsUnlimited\test\PartsUnlimited.UnitTests\bin\Release\netcoreapp2.2\PartsUnlimited.UnitTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="PartsUnlimited.UnitTests" name="PartsUnlimited.Utils.ContentDeliveryNetworkExtensionsTests.ScriptTest" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="69d8e18b-ebc9-4484-554f-b176ad73a4bd" executionId="ec315e0d-c0c9-4e62-b1b7-df2a410a7fc5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="38a15182-0581-756f-a01d-e3255d154eb4" executionId="5fc91e88-dc82-4686-b2f0-50402332d3a7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="153ae0b0-28a9-9f82-7249-ccd1c0d13f81" executionId="582fff86-01f9-4b08-b202-ca94ca65fc44" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fd9c09f7-1870-bad4-2a66-8bb15fa8e245" executionId="7a1b1662-828b-43cf-b98c-2ca0322918df" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d7bf9e76-405a-0f5f-f37f-54bea2bfce2c" executionId="25825f8f-6ff7-41c2-aa37-35bdfa6866ea" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="28d7d95e-a890-762d-030d-25e88df0b36d" executionId="7381cef1-bdeb-45ad-88e3-932813eea8dd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7bd0c013-78fd-e0f1-6870-0c061a2e868a" executionId="e5f519aa-5e3c-485e-9cd8-2afbfce71a20" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0c0259f6-4120-c702-4d4a-711dba0a139a" executionId="56f6cbea-2a93-4edd-8ae4-3cb1c6756a04" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="942c5813-ee24-cb3c-4793-cc1455ec7f5d" executionId="9bb17405-6529-4378-bb1f-ba9cb733a673" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d4a7620c-5dcf-49f5-e86e-9e15b8d9ccc5" executionId="2534bb27-f957-4cbc-bdd9-be297e31be60" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c226bdfe-8d42-0b8f-5998-95296b24a260" executionId="ce78adca-9241-455f-bdef-1d58167834bb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="11" executed="11" passed="11" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.4.1 (64-bit .NET Core 4.6.27317.07)[xUnit.net 00:00:02.14]   Discovering: PartsUnlimited.UnitTests[xUnit.net 00:00:02.20]   Discovered:  PartsUnlimited.UnitTests[xUnit.net 00:00:02.21]   Starting:    PartsUnlimited.UnitTests[xUnit.net 00:00:02.66]   Finished:    PartsUnlimited.UnitTests</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

@@ -1,0 +1,149 @@
+﻿@import 'Settings';
+
+#shopping-cart-page {
+  border: 1px solid white;
+  margin: 3rem 0;
+  padding: 3rem;
+  background-color: #002e2e;
+
+  section {
+    @media screen and (max-width: $size-mobile-max) {
+      padding: 15px 0 0 0;
+
+      h2,
+      #update-message {
+        margin-left: 15px;
+        margin-right: 15px;
+      }
+    }
+    #cart-summary {
+      margin: 3px 0 0 0;
+
+      hr {
+        border-color: rgba(154, 154, 154, 0.3);
+      }
+
+      .checkout {
+        background-color: #ea7600;
+        min-width: 165px;
+        margin: 10px;
+      }
+
+      .cart-summary-header {
+        padding: 5px 15px;
+        font-weight: bold;
+        font-size: 16px;
+      }
+
+      .cart-item {
+        margin-bottom: 5px;
+        margin-left: 15px;
+        position: relative;
+        padding: 0 15px;
+        border-bottom: 1px solid rgba(154, 154, 154, 0.3);
+
+        @media screen and (max-width: $size-mobile-max) {
+          margin-bottom: 0;
+          padding-bottom: 0;
+        }
+
+        .row {
+          .cart-image {
+            padding: 0;
+          }
+
+          img {
+            max-width: 130px;
+
+            @media screen and (max-width: $size-mobile-max) {
+              max-width: 75px;
+            }
+          }
+
+          a {
+            color: $color-white;
+          }
+
+          & > div {
+            margin: 15px 0;
+          }
+
+          .item-label {
+            margin: 0;
+            font-weight: normal;
+            font-size: 16px;
+
+            @media screen and (max-width: $size-mobile-max) {
+              font-weight: bold;
+              margin: 10px 0;
+            }
+          }
+
+          .item-price {
+            font-size: 16px;
+
+            @media screen and (max-width: $size-mobile-max) {
+              font-size: 20px;
+              font-weight: bold;
+              color: $color-inverse;
+            }
+          }
+
+          @media screen and (max-width: $size-mobile-max) {
+            .item-inventory {
+              margin: 29px 0;
+            }
+
+            .description {
+              background-color: $color-background;
+              margin: 0;
+            }
+          }
+
+          .remove-link {
+            img {
+              max-width: 40px;
+
+              margin: 20px 0;
+            }
+          }
+
+          .remove-cart-item {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            padding: 15px;
+            margin: 0;
+            a {
+              min-width: 165px;
+            }
+            .remove-link {
+              background-color: #ea7600;
+            }
+          }
+        }
+      }
+    }
+
+    .checkout {
+      margin-bottom: 10px;
+      @media screen and (min-width: $size-mobile-max) {
+        margin-bottom: 0;
+      }
+    }
+
+    #empty-cart {
+      margin: 0;
+      padding: 15px;
+    }
+  }
+}
+
+#complete-page {
+  p {
+    font-size: 16px;
+  }
+  .complete-message {
+    margin: 10px 20px;
+  }
+}

@@ -1,0 +1,129 @@
+﻿@import 'Settings';
+
+#login-page {
+  #login-panel {
+    margin-bottom: 35px;
+
+    input[type='checkbox'] {
+      margin-top: 10px;
+    }
+  }
+
+  #social-login-form {
+    #socialLoginList {
+      & > div {
+        margin: 5px 0;
+      }
+    }
+  }
+}
+
+#manage-page {
+  dt {
+    width: 200px;
+    padding-right: 15px;
+  }
+}
+
+#order-history-page {
+  section.section-alt {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .row.order {
+    border: 1px solid $color-white;
+    border-top: none;
+    background-color: $color-background;
+
+    .order-summary {
+      padding: 15px;
+      height: 100%;
+    }
+
+    .order-detail {
+      min-height: 90px;
+
+      .order-detail-item {
+        border-top: 1px solid $color-rule;
+      }
+
+      .order-detail-item:first-child {
+        border-top: none;
+      }
+    }
+  }
+
+  .row.order:first-child {
+    border-top: 1px solid $color-white;
+  }
+}
+
+#order-detail-page {
+  .order-detail,
+  .order-header {
+    padding: 0 15px;
+  }
+
+  .order-detail {
+    .row {
+      min-height: 40px;
+      div {
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+    }
+  }
+
+  .panel {
+    background-color: #002e2e;
+  }
+
+  .order-header {
+    border-bottom: 1px solid $color-white;
+  }
+}
+
+.cost-summary {
+  padding: 15px 15px 0 15px;
+  font-size: 16px;
+
+  @media screen and (max-width: $size-mobile-max) {
+    background-color: #ffffff;
+    padding: 15px;
+  }
+  hr {
+    margin: 10px 0;
+  }
+  .cost-value {
+    text-align: right;
+    font-weight: bold;
+  }
+  .total {
+    font-size: 18px;
+    padding-bottom: 15px;
+    .cost-header {
+      font-weight: bold;
+    }
+  }
+}
+
+.loginScreen,
+.alt-container {
+  background: #002e2e;
+  margin: 3em 0;
+  padding: 3em;
+  color: $color-white;
+  border: 1px solid $color-white;
+  h2 {
+    border-bottom: 1px solid $color-rule;
+    padding-bottom: 10px;
+    margin: 15px;
+  }
+  h4 {
+    margin-bottom: 20px;
+  }
+  .shippingFormRow {
+    padding: 0 15px;
+  }
+}
