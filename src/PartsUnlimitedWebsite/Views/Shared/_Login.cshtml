@@ -1,7 +1,7 @@
 ﻿@if (User.Identity.IsAuthenticated)
 {
     var isNtlm = User.Identity.AuthenticationType == "NTLM";
-    
+
     <li class="dropdown">
         <a href="@Url.Action("Index", "Store")" id="profile-link" class="dropdown-toggle head-link" data-toggle="dropdown">Profile&nbsp;<br class="hidden-xs" /><b class="caret"></b></a>
         <ul class="dropdown-menu">
@@ -9,17 +9,24 @@
             <li>@Html.ActionLink("View Orders", "Index", "Orders", new { Area = string.Empty })</li>
             @if (!isNtlm)
             {
-            <li>
-                @*Either NTLM will be used or social authentication will be used. Based on the authentication schemes enabled remove an unused block.*@
-                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
-                {
-                    @Html.AntiForgeryToken()
-                }
-                <a href="javascript:document.getElementById('logoutForm').submit()" >Log off</a>
-            </li>
+                <li>
+                    @*Either NTLM will be used or social authentication will be used. Based on the authentication schemes enabled remove an unused block.*@
+                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                    {
+                        @Html.AntiForgeryToken()
+                    }
+                    <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                </li>
             }
         </ul>
     </li>
+}
+
+else if (TempData.Peek("EmailID") != null)
+{
+    var emailid = TempData.Peek("EmailID").ToString();
+    <li class="Logout-Link">@Html.ActionLink("Logout", "Logout", "Account", routeValues: null, htmlAttributes: new { id = "login-link", @class = "head-link" })</li>
+    <li>@Html.ActionLink(emailid, "Index", "Home", routeValues: null, htmlAttributes: new { @class = "head-link" })</li>
 }
 else
 {

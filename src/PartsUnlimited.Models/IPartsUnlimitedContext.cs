@@ -22,7 +22,8 @@ namespace PartsUnlimited.Models
         DbSet<Raincheck> RainChecks { get; }
         DbSet<Store> Stores { get; }
         DbSet<Aspnetusers> Aspnetusers { get; }
-        
+        DbSet<CartItemByUser> CartItemsByUser { get; }
+
 
         Task<int> SaveChangesAsync(CancellationToken requestAborted);
         EntityEntry Entry(object entity);

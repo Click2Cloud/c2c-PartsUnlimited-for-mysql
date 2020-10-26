@@ -30,10 +30,10 @@ namespace PartsUnlimited.Models
             return cart;
         }
 
-        public static List<CartItem> GetCartDemo(IPartsUnlimitedContext db, HttpContext context)
+        public static List<CartItemByUser> GetCartDemo(IPartsUnlimitedContext db, HttpContext context, string UserID)
         {
             var cart = new ShoppingCart(db);
-            var ShoppingCartId = cart.GetCartIdDemo(context);
+            var ShoppingCartId = cart.GetCartIdDemo(context, UserID);
             return ShoppingCartId;
         }
 
@@ -50,25 +50,39 @@ namespace PartsUnlimited.Models
 
 
 
-        public void AddToCart(Product product)
+        public void AddToCart(Product product, string UserID, string EmailID)
         {
             // Get the matching cart and product instances
-            var cartItem = _db.CartItems.SingleOrDefault(
-                c => c.CartId == ShoppingCartId
-                && c.ProductId == product.ProductId);
+            //var cartItem = _db.CartItems.SingleOrDefault(
+            //    c => c.CartId == ShoppingCartId
+            //    && c.ProductId == product.ProductId);
 
+            //if (cartItem == null)
+            //{
+            //    // Create a new cart item if no cart item exists
+            //    cartItem = new CartItem
+            //    {
+            //        ProductId = product.ProductId,
+            //        CartId = ShoppingCartId,
+            //        Count = 1,
+            //        DateCreated = DateTime.Now
+            //    };
+
+            //    _db.CartItems.Add(cartItem);
+            //}
+            var cartItem = _db.CartItemsByUser.SingleOrDefault(c => c.CartId == ShoppingCartId && c.ProductId == product.ProductId && c.UserID == UserID);
             if (cartItem == null)
             {
-                // Create a new cart item if no cart item exists
-                cartItem = new CartItem
+                cartItem = new CartItemByUser
                 {
                     ProductId = product.ProductId,
                     CartId = ShoppingCartId,
                     Count = 1,
-                    DateCreated = DateTime.Now
+                    DateCreated = DateTime.Now,
+                    UserID = UserID,
+                    Email = EmailID
                 };
-
-                _db.CartItems.Add(cartItem);
+                _db.CartItemsByUser.Add(cartItem);
             }
             else
             {
@@ -235,10 +249,11 @@ namespace PartsUnlimited.Models
             //return cartId;
         }
 
-        public List<CartItem> GetCartIdDemo(HttpContext context)
+        public List<CartItemByUser> GetCartIdDemo(HttpContext context, string UserID)
         {
-            List<CartItem> cartId = _db.CartItems.ToList();
+            //List<CartItem> cartId = _db.CartItems.ToList();
             //List<CartItem> cartItems = _db.CartItems.Where(m => m.CartId == ShoppingCartId).ToList();
+            List<CartItemByUser> cartId = _db.CartItemsByUser.Where(ci => ci.UserID == UserID).ToList();
             return cartId;           
         }
     }

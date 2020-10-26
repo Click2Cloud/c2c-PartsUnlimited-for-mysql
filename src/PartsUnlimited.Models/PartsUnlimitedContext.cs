@@ -26,7 +26,7 @@ namespace PartsUnlimited.Models
         public DbSet<Raincheck> RainChecks { get; set; }
         public DbSet<Store> Stores { get; set; }
         public DbSet<Aspnetusers> Aspnetusers { get; set; }
-
+        public DbSet<CartItemByUser> CartItemsByUser { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Product>().Ignore(a => a.ProductDetailList).HasKey(a => a.ProductId);
@@ -36,6 +36,7 @@ namespace PartsUnlimited.Models
             builder.Entity<OrderDetail>().HasKey(o => o.OrderDetailId);
             builder.Entity<Raincheck>().HasKey(o => o.RaincheckId);
             builder.Entity<Store>().HasKey(o => o.StoreId);
+            builder.Entity<CartItemByUser>().HasKey(ci => ci.CartItemId);
             //builder.Entity<Aspnetusers>().HasKey(a => a.Id);
             //builder.Entity<Aspnetusers>().Property(a => a.AccessFailedCount).HasConversion<int>();
 

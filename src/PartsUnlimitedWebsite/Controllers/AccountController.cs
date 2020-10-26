@@ -61,18 +61,9 @@ namespace PartsUnlimited.Controllers
 
             var query = _db.Aspnetusers.Where(m => m.Email == model.Email && m.Password == model.Password).FirstOrDefault();
             if (query != null)
-            {
-                //string name = "safi";
-                //string email = query.Email;
-                //TempData["EmailID"] = email;
-                //TempData.Keep(email);
-                //name = HttpContext.Request.Query["name"].ToString();
-                //return Content(name);
-                HttpContext.Session.SetString("UserEmail", query.Email);                
-                //var email=HttpContext.Session.GetString("UserEmail");                
-                //return RedirectToAction("Index", "Home", new {email= query.Email });
-                return RedirectToAction("Index", "Home");
-                //return RedirectToAction("Login", "Account",new );
+            {               
+                //HttpContext.Session.SetString("UserEmail", query.Email);      
+                return RedirectToAction("Index", "Home", new { email = query.Email, userid = query.Id });                
             }
            
             //var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);

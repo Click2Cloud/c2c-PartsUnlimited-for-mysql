@@ -19,6 +19,8 @@ namespace PartsUnlimited.Controllers
         private readonly IPartsUnlimitedContext _db;
         private readonly IMemoryCache _cache;
         public int roco_count = 1000;
+        string userid = "";
+        string temp = "";
         //public string email;
 
 
@@ -32,16 +34,21 @@ namespace PartsUnlimited.Controllers
         // GET: /Home/
         public IActionResult Index()
         {
-            //if (TempData["Data"]!=null){
-            //    var email = TempData["Data"].ToString();
-            //}
-            //var temp = HttpContext.Request.Query["email"];
+            //change by Safi on 26-10-2020
+            temp = HttpContext.Request.Query["email"];
+            userid = HttpContext.Request.Query["userid"];
             //ViewBag.EmailID = temp;
-            //string GetEmailValue = JsonConvert.DeserializeObject<Aspnetusers>(HttpContext.Session.GetString("UserEmail")).ToString();
-            //if(HttpContext.Session.GetString("GetEmail")!=null)
-            //{
-            //    email = HttpContext.Session.GetString("GetEmail");
-            //}
+            if (userid != null && temp != null)
+            {
+                TempData["UserID"] = userid;
+                TempData["EmailID"] = temp;
+                //HttpContext.Session.SetString("UserID", userid);
+            }
+            if (temp != null)
+            {
+                HttpContext.Session.SetString("UserEmail", temp);
+                //HttpContext.Session.SetString("UserID", userid);
+            }
 
 
             // Get most popular products

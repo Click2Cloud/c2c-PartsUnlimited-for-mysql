@@ -27,14 +27,18 @@ namespace PartsUnlimited.Controllers
             _telemetry = telemetryProvider;
             _antiforgery = antiforgery;
         }
-
+        string UserID = "";
         //
         // GET: /ShoppingCart/
 
         public IActionResult Index()
         {
+            if (TempData["UserID"] != null && TempData["EmailID"] != null)
+            {
+                UserID = TempData["UserID"].ToString();
+            }
             //var cart = ShoppingCart.GetCart(_db, HttpContext);
-            var cart2 = ShoppingCart.GetCartDemo(_db, HttpContext);
+            var cart2 = ShoppingCart.GetCartDemo(_db, HttpContext,UserID);
             var viewModel1 = new ShoppingCartViewModel();
 
             //demo adding today 
@@ -104,32 +108,41 @@ namespace PartsUnlimited.Controllers
 
         public async Task<IActionResult> AddToCart(int id)
         {
-            //var email = TempData["Data"].ToString();
-            // Retrieve the product from the database
-            var addedProduct = _db.Products
+            //changes on 26-10-2020
+            if (TempData["UserID"] != null && TempData["EmailID"] != null)
+            {
+                string UserID = TempData["UserID"].ToString();
+                string EmailID = TempData["EmailID"].ToString();
+                // Retrieve the product from the database
+                var addedProduct = _db.Products
                 .Single(product => product.ProductId == id);
 
-            // Start timer for save process telemetry
-            var startTime = System.DateTime.Now;
+                // Start timer for save process telemetry
+                var startTime = System.DateTime.Now;
 
-            // Add it to the shopping cart
-            //var cart = ShoppingCart.GetCart(_db, HttpContext);
-            var cart = ShoppingCart.AddToCartID(_db, HttpContext); //new
+                // Add it to the shopping cart
+                //var cart = ShoppingCart.GetCart(_db, HttpContext);
+                var cart = ShoppingCart.AddToCartID(_db, HttpContext); //new
 
-            cart.AddToCart(addedProduct);
+                cart.AddToCart(addedProduct, UserID, EmailID);
 
-            await _db.SaveChangesAsync(HttpContext.RequestAborted);
+                await _db.SaveChangesAsync(HttpContext.RequestAborted);
 
-            // Trace add process
-            var measurements = new Dictionary<string, double>()
+                // Trace add process
+                var measurements = new Dictionary<string, double>()
             {
                 {"ElapsedMilliseconds", System.DateTime.Now.Subtract(startTime).TotalMilliseconds }
             };
-            _telemetry.TrackEvent("Cart/Server/Add", null, measurements);
+                _telemetry.TrackEvent("Cart/Server/Add", null, measurements);
 
-            // Go back to the main store page for more shopping
-            return RedirectToAction("Index");
-            //return RedirectToAction("Index","Home");
+                // Go back to the main store page for more shopping
+                return RedirectToAction("Index");
+                //return RedirectToAction("Index","Home");
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
 
         //
