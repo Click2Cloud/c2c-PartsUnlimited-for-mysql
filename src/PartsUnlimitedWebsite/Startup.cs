@@ -115,7 +115,7 @@ namespace PartsUnlimited
             services.Configure<CookiePolicyOptions>(options =>
             {
                 options.MinimumSameSitePolicy = SameSiteMode.None;
-                options.Secure = CookieSecurePolicy.Always;
+                //options.Secure = CookieSecurePolicy.Always;
             });
 
             services

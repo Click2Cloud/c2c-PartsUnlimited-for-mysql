@@ -61,7 +61,7 @@
                                         }
                                     </div>
                                 </li>
-                                <li><a href="@Url.Action("Index", "Home")" class="head-link" id="home-link">Home</a></li>
+                                <li><a href="@Url.Action("Index", "Home",new { email=TempData.Peek("EmailID"),userid=TempData.Peek("UserID")})" class="head-link" id="home-link">Home</a></li>
                                 @await Component.InvokeAsync("CartSummary")
                                 @await Html.PartialAsync("_AdminMenu")
                                 @await Html.PartialAsync("_Login")
