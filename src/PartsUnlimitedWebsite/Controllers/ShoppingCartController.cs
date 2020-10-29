@@ -40,7 +40,7 @@ namespace PartsUnlimited.Controllers
             //var cart = ShoppingCart.GetCart(_db, HttpContext);
             var cart2 = ShoppingCart.GetCartDemo(_db, HttpContext,UserID);
             var viewModel1 = new ShoppingCartViewModel();
-
+            decimal SubTotalValue = 0;
             //demo adding today 
 
             foreach (var item in cart2)
@@ -50,10 +50,11 @@ namespace PartsUnlimited.Controllers
                 var subTotal1 = (item.Count * item.Product.Price);
                 var shipping1 = item.Count * (decimal)5.00;
                 var tax1 = (subTotal1 + shipping1) * (decimal)0.05;
-                var total1 = subTotal1 + shipping1 + tax1;
+                SubTotalValue += subTotal1;
+                var total1 = SubTotalValue + shipping1 + tax1;
                 var costSummary1 = new OrderCostSummary
                 {
-                    CartSubTotal = subTotal1.ToString("C"),
+                    CartSubTotal = SubTotalValue.ToString("C"),
                     CartShipping = shipping1.ToString("C"),
                     CartTax = tax1.ToString("C"),
                     CartTotal = total1.ToString("C")

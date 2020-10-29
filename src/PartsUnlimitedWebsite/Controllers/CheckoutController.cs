@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace PartsUnlimited.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class CheckoutController : Controller
     {
         private readonly IPartsUnlimitedContext _db;
@@ -32,40 +32,41 @@ namespace PartsUnlimited.Controllers
 
         public async Task<IActionResult> AddressAndPayment()
         {
-            var id = _userManager.GetUserId(User);
-            var user = await _db.Users.FirstOrDefaultAsync(o => o.Id == id);
-            user.Name = "John";
-            user.Email = "john@mapy.com";
-            user.UserName = "john@mapy.com";
-            var Phone = "314-612-3604";
-            var Address = "8926 Johnson Parkway";
-            var City = "Saint Louis";
-            var State = "Missouri";
-            var Country = "United States";
-            var PostalCode = "63101";
-            var order = new Order
-            {
-                Name = user.Name,
-                Email = user.Email,
-                Phone = Phone,
-                Username = user.UserName,
-                Address = Address,
-                City = City,
-                State = State,
-                PostalCode = PostalCode,
-                Country = Country
-            };
+            //var id = _userManager.GetUserId(User);
+            //var user = await _db.Users.FirstOrDefaultAsync(o => o.Id == id);
+            //user.Name = "John";
+            //user.Email = "john@mapy.com";
+            //user.UserName = "john@mapy.com";
+            //var Phone = "314-612-3604";
+            //var Address = "8926 Johnson Parkway";
+            //var City = "Saint Louis";
+            //var State = "Missouri";
+            //var Country = "United States";
+            //var PostalCode = "63101";
+            //var order = new Order
+            //{
+            //    Name = user.Name,
+            //    Email = user.Email,
+            //    Phone = Phone,
+            //    Username = user.UserName,
+            //    Address = Address,
+            //    City = City,
+            //    State = State,
+            //    PostalCode = PostalCode,
+            //    Country = Country
+            //};
 
-            return View(order);
+            return View();
         }
 
         //
         // POST: /Checkout/AddressAndPayment
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddressAndPayment(Order order)
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddressAndPayment(Order order,string userid)
         {
+            decimal orderTotal = 0;
             var formCollection = await HttpContext.Request.ReadFormAsync();
 
             try
@@ -77,16 +78,36 @@ namespace PartsUnlimited.Controllers
                 }
                 else
                 {
-                    order.Username = HttpContext.User.Identity.Name;
+                    //order.Username = HttpContext.User.Identity.Name;
                     order.OrderDate = DateTime.Now;
+                    order.Username = "Safi";
+                    //order.FinalValue = finalprice;
 
                     //Add the Order
                     _db.Orders.Add(order);
 
                     //Process the order
-                    var cart = ShoppingCart.GetCart(_db, HttpContext);
-                    cart.CreateOrder(order);
+                    //var cart = ShoppingCart.GetCart(_db, HttpContext);
+                    //cart.CreateOrder(order);
+                    var cart = ShoppingCart.GetCartDemo(_db, HttpContext, userid);
+                    foreach (var item in cart)
+                    {
+                        //var product = _db.Products.Find(item.ProductId);
+                        var product = _db.Products.Single(a => a.ProductId == item.ProductId);
 
+                        var orderDetail = new OrderDetail
+                        {
+                            ProductId = item.ProductId,
+                            OrderId = order.OrderId,
+                            UnitPrice = product.Price,
+                            Quantity = item.Count,
+                        };
+
+                        // Set the order total of the shopping cart
+                        orderTotal += (item.Count * product.Price);
+
+                        _db.OrderDetails.Add(orderDetail);
+                    }
                     // Save all changes
                     await _db.SaveChangesAsync(HttpContext.RequestAborted);
 
@@ -107,9 +128,12 @@ namespace PartsUnlimited.Controllers
         public IActionResult Complete(int id)
         {
             // Validate customer owns this order
+            //Order order = _db.Orders.FirstOrDefault(
+            //    o => o.OrderId == id &&
+            //    o.Username == HttpContext.User.Identity.Name);
+
             Order order = _db.Orders.FirstOrDefault(
-                o => o.OrderId == id &&
-                o.Username == HttpContext.User.Identity.Name);
+              o => o.OrderId == id);
 
             if (order != null)
             {

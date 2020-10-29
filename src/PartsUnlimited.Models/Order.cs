@@ -71,6 +71,8 @@ namespace PartsUnlimited.Models
         [Column(TypeName = "TINYINT(1)")]
         public bool Processed { get; set; }
 
+        
+
         [BindNever]
         public List<OrderDetail> OrderDetails { get; set; }
     }

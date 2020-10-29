@@ -31,7 +31,7 @@ else if (TempData.Peek("EmailID") != null)
         <ul class="dropdown-menu">
             <li>@Html.ActionLink(emailid, "Index", "Home", routeValues: null)</li>
             <li>@Html.ActionLink("Manage Account", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
-            <li>@Html.ActionLink("View Orders", "Index", "Orders", new { Area = string.Empty })</li>
+            <li>@Html.ActionLink("View Orders", "Index", "Orders",new { email = emailid }, new { Area = string.Empty })</li>
             <li>
                 @*Either NTLM will be used or social authentication will be used. Based on the authentication schemes enabled remove an unused block.*@
                 @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
