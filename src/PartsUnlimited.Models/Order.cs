@@ -4,7 +4,6 @@
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PartsUnlimited.Models
 {
@@ -68,10 +67,7 @@ namespace PartsUnlimited.Models
 
         [BindNever]
         [ScaffoldColumn(false)]
-        [Column(TypeName = "TINYINT(1)")]
         public bool Processed { get; set; }
-
-        
 
         [BindNever]
         public List<OrderDetail> OrderDetails { get; set; }

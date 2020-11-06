@@ -9,8 +9,6 @@ using PartsUnlimited.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json;
-using Microsoft.AspNetCore.Http;
 
 namespace PartsUnlimited.Controllers
 {
@@ -19,10 +17,6 @@ namespace PartsUnlimited.Controllers
         private readonly IPartsUnlimitedContext _db;
         private readonly IMemoryCache _cache;
         public int roco_count = 1000;
-        string userid = "";
-        string temp = "";
-        //public string email;
-
 
         public HomeController(IPartsUnlimitedContext context, IMemoryCache memoryCache)
         {
@@ -34,25 +28,8 @@ namespace PartsUnlimited.Controllers
         // GET: /Home/
         public IActionResult Index()
         {
-            //change by Safi on 26-10-2020
-            temp = HttpContext.Request.Query["email"];
-            userid = HttpContext.Request.Query["userid"];
-            //ViewBag.EmailID = temp;
-            if (userid != null && temp != null)
-            {
-                TempData["UserID"] = userid;
-                TempData["EmailID"] = temp;
-                //HttpContext.Session.SetString("UserID", userid);
-            }
-            if (temp != null)
-            {
-                HttpContext.Session.SetString("UserEmail", temp);
-                //HttpContext.Session.SetString("UserID", userid);
-            }
-
-
             // Get most popular products
-            List <Product> topSellingProducts;
+            List<Product> topSellingProducts;
             if (!_cache.TryGetValue("topselling", out topSellingProducts))
             {
                 topSellingProducts = GetTopSellingProducts(4);
@@ -71,7 +48,7 @@ namespace PartsUnlimited.Controllers
             List<Product>  WheelsThatMatter = GetProductsById(new int[] { 1039, 11, 10, 9 });
             List<Product> FunWithColors = GetProductsById(new int[] { 31, 40, 28, 44 });
             List<Product> GetSporty = GetProductsById(new int[] { 35, 1040, 1034, 1038 });
-            List<Product> HitTrack = GetProductsById(new int[] { 1035, 34, 37, 32 });
+            List<Product> HitTrack = GetProductsById(new int[] { 1035, 34, 37, 32 }); ;
 
             var viewModel = new HomeViewModel
             {
@@ -122,7 +99,7 @@ namespace PartsUnlimited.Controllers
             return GetProductsById(productIds);
         }
 
-        private List<Product> GetProductsById(int[] ids)
+        private List<Product> GetProductsById(int[] ids) 
         {
             var products = new List<Product>();
             foreach (var id in ids)
@@ -180,13 +157,6 @@ namespace PartsUnlimited.Controllers
                     .ToList();
             }
 
-            return View();
-        }
-
-        //Adding for testing connection with mysql on 09-10-2020
-
-        public ActionResult TestData()
-        {
             return View();
         }
     }

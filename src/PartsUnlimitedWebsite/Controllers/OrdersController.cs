@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace PartsUnlimited.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class OrdersController : Controller
     {
         private readonly IOrdersQuery _ordersQuery;
@@ -26,12 +26,11 @@ namespace PartsUnlimited.Controllers
             _telemetry = telemetryProvider;
         }
 
-        public async Task<IActionResult> Index(DateTime? start, DateTime? end, string invalidOrderSearch, string email)
+        public async Task<IActionResult> Index(DateTime? start, DateTime? end, string invalidOrderSearch)
         {
             var username = User.Identity.Name;
 
-            //return View(await _ordersQuery.IndexHelperAsync(username, start, end, 10, invalidOrderSearch, false));
-            return View(await _ordersQuery.IndexHelper(username, start, end, 10, invalidOrderSearch, false, email));
+            return View(await _ordersQuery.IndexHelperAsync(username, start, end, 10, invalidOrderSearch, false));
         }
 
         public async Task<IActionResult> Details(int? id)
@@ -43,33 +42,33 @@ namespace PartsUnlimited.Controllers
             }
           
             var order = await _ordersQuery.FindOrderAsync(id.Value);
-            //var username = User.Identity.Name;
+            var username = User.Identity.Name;
 
-            //// If the username isn't the same as the logged in user, return as if the order does not exist
-            //if (order == null || !String.Equals(order.Username, username, StringComparison.Ordinal))
-            //{
-            //    _telemetry.TrackTrace("Order/Server/UsernameMismatch");
-            //    return RedirectToAction("Index", new { invalidOrderSearch = id.ToString() });
-            //}
+            // If the username isn't the same as the logged in user, return as if the order does not exist
+            if (order == null || !String.Equals(order.Username, username, StringComparison.Ordinal))
+            {
+                _telemetry.TrackTrace("Order/Server/UsernameMismatch");
+                return RedirectToAction("Index", new { invalidOrderSearch = id.ToString() });
+            }
 
-            //// Capture order review event for analysis
-            //var eventProperties = new Dictionary<string, string>()
-            //    {
-            //        {"Id", id.ToString() },
-            //        {"Username", username }
-            //    };
-            //if (order.OrderDetails == null)
-            //{
-            //    _telemetry.TrackEvent("Order/Server/NullDetails", eventProperties, null);
-            //}
-            //else
-            //{
-            //    var eventMeasurements = new Dictionary<string, double>()
-            //    {
-            //        {"LineItemCount", order.OrderDetails.Count }
-            //    };
-            //    _telemetry.TrackEvent("Order/Server/Details", eventProperties, eventMeasurements);
-            //}
+            // Capture order review event for analysis
+            var eventProperties = new Dictionary<string, string>()
+                {
+                    {"Id", id.ToString() },
+                    {"Username", username }
+                };
+            if (order.OrderDetails == null)
+            {
+                _telemetry.TrackEvent("Order/Server/NullDetails", eventProperties, null);
+            }
+            else
+            {
+                var eventMeasurements = new Dictionary<string, double>()
+                {
+                    {"LineItemCount", order.OrderDetails.Count }
+                };
+                _telemetry.TrackEvent("Order/Server/Details", eventProperties, eventMeasurements);
+            }
 
             var itemsCount = order.OrderDetails.Sum(x => x.Quantity);
             var subTotal = order.OrderDetails.Sum(x => x.Quantity * x.Product.Price);

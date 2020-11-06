@@ -1,7 +1,6 @@
 ﻿@using System.Globalization
 @using PartsUnlimited
 @using Microsoft.DotNet.InternalAbstractions
-@using Microsoft.AspNetCore.Http
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,22 +16,16 @@
     <link href="/Content/Account.css" rel="stylesheet" type="text/css" />
     <link href="/Content/ShoppingCart.css" rel="stylesheet" type="text/css" />
     <link href="/Content/Store.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript">
-        function preventBack() { window.history.forward(); }
-        setTimeout("preventBack()", 0);
-        window.onunload = function () { null };
-    </script>
+   
 </head>
 <body>
-   
-
     <header>
         <nav class="navbar navbar-default">
             <div class="container">
                 <div class="primary-menu">
                     <div class="pull-left logo">
                         <a class="block logo-image" href="@Url.Action("Index", "Home")">
-                            <img src="/images/WWILogo.png" />
+                            <img src="/images/WWILogo.png"/>
                         </a>
                         <a class="block header" href="@Url.Action("Index", "Home")">
                             <h1>Wide World Importers</h1>
@@ -61,20 +54,16 @@
                                         }
                                     </div>
                                 </li>
-                                <li><a href="@Url.Action("Index", "Home",new { email=TempData.Peek("EmailID"),userid=TempData.Peek("UserID")})" class="head-link" id="home-link">Home</a></li>
+                                <li><a href="@Url.Action("Index", "Home")" class="head-link" id="home-link">Home</a></li>
                                 @await Component.InvokeAsync("CartSummary")
                                 @await Html.PartialAsync("_AdminMenu")
                                 @await Html.PartialAsync("_Login")
-                                @*@await Html.PartialAsync("Logout")*@
                                 <li class="dropdown visible-xs">
                                     <a href="@Url.Action("Index", "Store")" class="dropdown-toggle head-link" data-toggle="dropdown">Categories&nbsp;<b class="caret"></b></a>
                                     <ul class="dropdown-menu">
                                         @await Component.InvokeAsync("CategoryMenu")
                                     </ul>
                                 </li>
-                                @*<li><a>@TempData["EmailID"].ToString()</a></li>*@
-                                @*@Context.Session.GetString("UserEmail")*@
-
                             </ul>
                         </div>
                     </div>
@@ -154,11 +143,12 @@
             </div>
         </div>
     </footer>
-
+    
     <script src="~/lib/jquery/jquery.js"></script>
     <script src="~/lib/jquery-zoom/jquery.zoom.js"></script>
     <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
     <script src="~/lib/respond/respond.src.js"></script>
     @RenderSection("scripts", required: false)
+
 </body>
 </html>

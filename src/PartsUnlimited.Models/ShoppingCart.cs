@@ -14,13 +14,9 @@ namespace PartsUnlimited.Models
         private readonly IPartsUnlimitedContext _db;
         private string ShoppingCartId { get; set; }
 
-        public static IPartsUnlimitedContext _dba;
-        private static string ShoppingCartId2 { get; set; }
-
-
         public ShoppingCart(IPartsUnlimitedContext db)
         {
-            _db = db;           
+            _db = db;
         }
 
         public static ShoppingCart GetCart(IPartsUnlimitedContext db, HttpContext context)
@@ -30,59 +26,25 @@ namespace PartsUnlimited.Models
             return cart;
         }
 
-        public static List<CartItemByUser> GetCartDemo(IPartsUnlimitedContext db, HttpContext context, string UserID)
-        {
-            var cart = new ShoppingCart(db);
-            var ShoppingCartId = cart.GetCartIdDemo(context, UserID);
-            return ShoppingCartId;
-        }
-
-
-
-        public static ShoppingCart AddToCartID(IPartsUnlimitedContext db, HttpContext context) //new
-        {
-            var newCartId = new ShoppingCart(db);
-            newCartId.ShoppingCartId = Guid.NewGuid().ToString();
-            return newCartId;
-        }
-
-
-
-
-
-        public void AddToCart(Product product, string UserID, string EmailID)
+        public void AddToCart(Product product)
         {
             // Get the matching cart and product instances
-            //var cartItem = _db.CartItems.SingleOrDefault(
-            //    c => c.CartId == ShoppingCartId
-            //    && c.ProductId == product.ProductId);
+            var cartItem = _db.CartItems.SingleOrDefault(
+                c => c.CartId == ShoppingCartId
+                && c.ProductId == product.ProductId);
 
-            //if (cartItem == null)
-            //{
-            //    // Create a new cart item if no cart item exists
-            //    cartItem = new CartItem
-            //    {
-            //        ProductId = product.ProductId,
-            //        CartId = ShoppingCartId,
-            //        Count = 1,
-            //        DateCreated = DateTime.Now
-            //    };
-
-            //    _db.CartItems.Add(cartItem);
-            //}
-            var cartItem = _db.CartItemsByUser.SingleOrDefault(c => c.CartId == ShoppingCartId && c.ProductId == product.ProductId && c.UserID == UserID);
             if (cartItem == null)
             {
-                cartItem = new CartItemByUser
+                // Create a new cart item if no cart item exists
+                cartItem = new CartItem
                 {
                     ProductId = product.ProductId,
                     CartId = ShoppingCartId,
                     Count = 1,
-                    DateCreated = DateTime.Now,
-                    UserID = UserID,
-                    Email = EmailID
+                    DateCreated = DateTime.Now
                 };
-                _db.CartItemsByUser.Add(cartItem);
+
+                _db.CartItems.Add(cartItem);
             }
             else
             {
@@ -133,23 +95,6 @@ namespace PartsUnlimited.Models
 
             return cartItems;
         }
-
-
-        public List<CartItem> GetCartItemsDemo()
-        {
-            var cartItems = _db.CartItems.Where(cart => cart.CartId == ShoppingCartId).ToList();
-            //TODO: Auto population of the related product data not available until EF feature is lighted up.
-            foreach (var cartItem in cartItems)
-            {
-                cartItem.Product = _db.Products.Single(a => a.ProductId == cartItem.ProductId);
-            }
-
-            return cartItems;
-        }
-
-
-
-
 
         public int GetCount()
         {
@@ -228,33 +173,23 @@ namespace PartsUnlimited.Models
         // We're using HttpContextBase to allow access to cookies.
         public string GetCartId(HttpContext context)
         {
-            var cartItems = _db.CartItems.Select(m => m.CartId).First();
-            return cartItems;
-            //var sessionCookie = context.Request.Cookies["Session"];
-            //string cartId = null;
+            var sessionCookie = context.Request.Cookies["Session"];
+            string cartId = null;
 
-            //if (string.IsNullOrWhiteSpace(sessionCookie))
-            //{
-            //    //A GUID to hold the cartId. 
-            //    cartId = Guid.NewGuid().ToString();
+            if (string.IsNullOrWhiteSpace(sessionCookie))
+            {
+                //A GUID to hold the cartId. 
+                cartId = Guid.NewGuid().ToString();
 
-            //    // Send cart Id as a cookie to the client.
-            //    context.Response.Cookies.Append("Session", cartId);
-            //}
-            //else
-            //{
-            //    cartId = sessionCookie;
-            //}
+                // Send cart Id as a cookie to the client.
+                context.Response.Cookies.Append("Session", cartId);
+            }
+            else
+            {
+                cartId = sessionCookie;
+            }
 
-            //return cartId;
-        }
-
-        public List<CartItemByUser> GetCartIdDemo(HttpContext context, string UserID)
-        {
-            //List<CartItem> cartId = _db.CartItems.ToList();
-            //List<CartItem> cartItems = _db.CartItems.Where(m => m.CartId == ShoppingCartId).ToList();
-            List<CartItemByUser> cartId = _db.CartItemsByUser.Where(ci => ci.UserID == UserID).ToList();
-            return cartId;           
+            return cartId;
         }
     }
 }

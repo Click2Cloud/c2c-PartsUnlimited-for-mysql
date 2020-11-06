@@ -1,5 +1,7 @@
 ﻿{
   "ConnectionStrings": {
-    "DefaultConnectionString": "Data Source=114.143.207.109; Initial Catalog=WWI;User ID=sa;Password=ROOT#123; Integrated Security=False; MultipleActiveResultSets=True;"
+    //"DefaultConnectionString": "Data Source=114.143.207.109; Initial Catalog=WWI;User ID=sa;Password=ROOT#123; Integrated Security=False; MultipleActiveResultSets=True;",
+    //"DefaultConnectionString": "server=localhost;User Id=root;password=RooT@#31*;database=WWINewDB;persistsecurityinfo=True;"
+    "DefaultConnectionString": "server=114.143.207.108;User Id=devuser;password=ROOT#123;database=wwi;persistsecurityinfo=True;"
   }
 }

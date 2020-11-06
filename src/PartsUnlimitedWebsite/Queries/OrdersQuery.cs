@@ -82,35 +82,5 @@ namespace PartsUnlimited.Queries
                 }
             }
         }
-        public async Task<OrdersModel> IndexHelper(string username, DateTime? start, DateTime? end, int count, string invalidOrderSearch, bool isAdminSearch, string email)
-        {
-            // The datetime submitted is only expected to have a resolution of a day, so we remove
-            // the time of day from start and end.  We add a day for queryEnd to ensure the date
-            // includes the whole day requested
-            var queryStart = (start ?? DateTime.Now).Date;
-            var queryEnd = (end ?? DateTime.Now).Date.AddDays(1).AddSeconds(-1);
-            var emailId = email;
-
-            var results = await GetOrderQueryByEmail(username, queryStart, queryEnd, count, email).ToListAsync();
-
-            await FillOrderDetails(results);
-
-            return new OrdersModel(results, username, queryStart, queryEnd, invalidOrderSearch, isAdminSearch);
-        }
-        private IQueryable<Order> GetOrderQueryByEmail(string username, DateTime start, DateTime end, int count, string email)
-        {
-            if (String.IsNullOrEmpty(username))
-            {
-                return _db.Orders.Where(o => o.OrderDate < end && o.OrderDate >= start && o.Email == email).OrderBy(o => o.OrderDate).Take(count);
-            }
-            else
-            {
-                return _db
-                    .Orders
-                    .Where(o => o.OrderDate < end && o.OrderDate >= start && o.Username == username)
-                    .OrderBy(o => o.OrderDate)
-                    .Take(count);
-            }
-        }
     }
 }

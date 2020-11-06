@@ -3,7 +3,6 @@
 
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PartsUnlimited.Models
 {
@@ -20,7 +19,6 @@ namespace PartsUnlimited.Models
 
         public int DisplayOrder { get; set; }
 
-        [Column(TypeName = "TINYINT(1)")]
         public bool Published { get; set; }
 
         public List<Product> Products { get; set; }

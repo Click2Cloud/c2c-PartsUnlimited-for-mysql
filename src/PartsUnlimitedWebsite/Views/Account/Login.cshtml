@@ -1,20 +1,13 @@
 ﻿@using PartsUnlimited.Models
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@using Microsoft.AspNetCore.Http
+
 @model LoginViewModel
+
 @{
     ViewBag.Title = "Log In";
 }
 
 
-@{
-    var email = Context.Session.GetString("UserEmail");
-    if (email == null)
-    {
-
-    }
-
-}
 <div class="row loginScreen">
     <h2>@ViewBag.Title</h2>
     <div class="col-md-8">
@@ -48,11 +41,11 @@
                     <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="Log in" class="btn btn-default" />
                         <p>
-                            <a asp-action="Register">Register as a new user?</a>
-                        </p>
-                        <p>
-                            <a asp-action="ForgotPassword">Forgot your password?</a>
-                        </p>
+                    <a asp-action="Register">Register as a new user?</a>
+                </p>
+                <p>
+                    <a asp-action="ForgotPassword">Forgot your password?</a>
+                </p>
                     </div>
                 </div>
             </form>
@@ -64,4 +57,5 @@
         </section>
     </div>
 </div>
+
 

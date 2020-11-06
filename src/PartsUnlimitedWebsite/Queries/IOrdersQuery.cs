@@ -12,6 +12,5 @@ namespace PartsUnlimited.Queries
     {
         Task<Order> FindOrderAsync(int id);
         Task<OrdersModel> IndexHelperAsync(string username, DateTime? start, DateTime? end, int count, string invalidOrderSearch, bool isAdminSearch);
-        Task<OrdersModel> IndexHelper(string username, DateTime? start, DateTime? end, int count, string invalidOrderSearch, bool isAdminSearch, string email);
     }
 }

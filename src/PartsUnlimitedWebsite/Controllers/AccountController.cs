@@ -10,30 +10,21 @@ using System;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
-
 
 namespace PartsUnlimited.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
-        private readonly IPartsUnlimitedContext _db;    
-
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,IPartsUnlimitedContext context)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
-           
             UserManager = userManager;
             SignInManager = signInManager;
-            _db = context;
         }
 
         public UserManager<ApplicationUser> UserManager { get; private set; }
 
         public SignInManager<ApplicationUser> SignInManager { get; private set; }
-
-       
 
         //
         // GET: /Account/Login
@@ -48,7 +39,7 @@ namespace PartsUnlimited.Controllers
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
             if (!ModelState.IsValid)
@@ -58,38 +49,25 @@ namespace PartsUnlimited.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
+            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
 
-            var query = _db.Aspnetusers.Where(m => m.Email == model.Email && m.Password == model.Password).FirstOrDefault();
-            if (query != null)
-            {               
-                //HttpContext.Session.SetString("UserEmail", query.Email);      
-                return RedirectToAction("Index", "Home", new { email = query.Email, userid = query.Id });                
+            if (result.Succeeded)
+            {
+                return RedirectToLocal(returnUrl);
             }
-           
-            //var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
-            //if (result.Succeeded)
-            //{
-            //    return RedirectToLocal(returnUrl);
-            //}
 
-            //if (result.IsLockedOut)
-            //{
-            //    return View("Lockout");
-            //}
+            if (result.IsLockedOut)
+            {
+                return View("Lockout");
+            }
 
-            //if (result.RequiresTwoFactor)
-            //{
-            //    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-            //}
+            if (result.RequiresTwoFactor)
+            {
+                return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+            }
 
             ModelState.AddModelError("", "Invalid login attempt.");
             return View(model);
-        }
-
-        public IActionResult Logout()
-        {
-            HttpContext.Session.Clear();
-            return RedirectToAction("Index", "Home");
         }
 
         //
@@ -152,33 +130,29 @@ namespace PartsUnlimited.Controllers
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(Aspnetusers model)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                //var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                //var result = await UserManager.CreateAsync(user, model.Password);
-                //if (result.Succeeded)
-                //{
-                //    var code = await UserManager.GenerateEmailConfirmationTokenAsync(user);
-                //    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
-                //    await MessageServices.SendEmailAsync(model.Email, "Confirm your account",
-                //        "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
-                //    ViewBag.Link = callbackUrl;
-                //    ViewBag.Code = code;
-                //    ViewBag.UserId = user.Id;
-                //    return View("RegisterConfirmation");
-                //}
-                //AddErrors(result);
-                _db.Aspnetusers.Add(model);
-                await _db.SaveChangesAsync(HttpContext.RequestAborted);
-                return View("RegisterConfirmation");
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    var code = await UserManager.GenerateEmailConfirmationTokenAsync(user);
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
+                    await MessageServices.SendEmailAsync(model.Email, "Confirm your account",
+                        "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
+                    ViewBag.Link = callbackUrl;
+                    ViewBag.Code = code;
+                    ViewBag.UserId = user.Id;
+                    return View("RegisterConfirmation");
+                }
+                AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
             return View(model);
-            //return RedirectToAction("Register", "Account");
         }
 
         //

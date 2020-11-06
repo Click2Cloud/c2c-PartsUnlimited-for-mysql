@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Http;
 
 namespace PartsUnlimited.Models
 {
@@ -39,19 +38,13 @@ namespace PartsUnlimited.Models
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
-            //services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddSession();
-            //services.AddSession(options => options.IdleTimeout = TimeSpan.FromSeconds(10));
-           
             var sqlConnectionString = Configuration[ConfigurationPath.Combine("Data", "DefaultConnection", "ConnectionString")];
             if (!String.IsNullOrEmpty(sqlConnectionString))
             {
                 services.AddEntityFrameworkSqlServer()
                       .AddDbContext<PartsUnlimitedContext>(options =>
                       {
-                          //options.UseSqlServer(sqlConnectionString);
-                          options.UseMySQL(sqlConnectionString);
+                          options.UseSqlServer(sqlConnectionString);
                       });
             }
 
@@ -59,19 +52,8 @@ namespace PartsUnlimited.Models
         }
 
         //Configure is required by 'ef migrations add' command.
-        public void Configure(IApplicationBuilder app,IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                //app.UseBrowserLink();
-            }
-            app.UseSession();
-            app.UseStaticFiles();
-            //app.UseCookiePolicy();
-            
-            
-            
         }
     }
 }

@@ -4,7 +4,6 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PartsUnlimited.Models
 {
@@ -29,7 +28,6 @@ namespace PartsUnlimited.Models
         public string SelectedProvider { get; set; }
         public ICollection<SelectListItem> Providers { get; set; }
         public string ReturnUrl { get; set; }
-       
         public bool RememberMe { get; set; }
     }
 
@@ -44,9 +42,8 @@ namespace PartsUnlimited.Models
         public string ReturnUrl { get; set; }
 
         [Display(Name = "Remember this browser?")]
-   
         public bool RememberBrowser { get; set; }
-    
+
         public bool RememberMe { get; set; }
     }
 
@@ -69,13 +66,8 @@ namespace PartsUnlimited.Models
         [Display(Name = "Password")]
         public string Password { get; set; }
 
-        
         [Display(Name = "Remember me?")]
-        [Column(TypeName = "TINYINT(1)")]
         public bool RememberMe { get; set; }
-
-
-       
     }
 
     public class RegisterViewModel
@@ -125,5 +117,4 @@ namespace PartsUnlimited.Models
         [Display(Name = "Email Address")]
         public string Email { get; set; }
     }
-    
 }
