@@ -8,24 +8,28 @@
 <script src="https://js.stripe.com/v3/"></script>
 <h2>Payment</h2>
 
-<form asp-action="Charge" asp-controller="Checkout" method="POST">
+<form asp-action="Charge" asp-controller="Checkout" method="POST">   
     <div class="container">
         <div class='form-row'>
             <div class='col-md-12'>
                 <div class='form-control total btn btn-info'>
                     Total:
-                    <span class='amount'>@TempData["FinalPayment"]</span>
+                    <span class='amount'>@TempData["FinalPayment"]</span> 
+                    
                 </div>
             </div>
         </div>
-
+        @{ 
+            var TotalValue = TempData["FinalPayment"];
+        }
         <div class='form-row'>
             <div class='col-md-12 form-group'>
+                
                 <script src="//checkout.stripe.com/v2/checkout.js"
                         class="stripe-button"
                         data-key="@Stripe.Value.PublishableKey"
                         data-description="Sample Charge"
-                        data-amount="">
+                        data-amount="TotalValue">
                 </script>
             </div>
         </div>

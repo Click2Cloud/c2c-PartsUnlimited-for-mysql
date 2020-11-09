@@ -605,9 +605,7 @@
             "[resourceId('Microsoft.Web/sites/', parameters('WebSiteName'))]"
           ],
           "properties": {
-            "DefaultConnectionString": {
-              //"value": "[concat('Data Source=114.143.207.109; Initial Catalog=WWI;User ID=sa;Password=ROOT#123; Integrated Security=False; MultipleActiveResultSets=True', ';')]",
-              //"value": "[concat('server=localhost;User Id=root;password=RooT@#31*;database=WWINewDB;persistsecurityinfo=True;')]",
+            "DefaultConnectionString": {            
               "value": "[concat('server=114.143.207.108;User Id=devuser;password=ROOT#123;database=wwi;persistsecurityinfo=True')]",
               "type": "SQLAzure"
             }
@@ -660,9 +658,7 @@
                 "[resourceId('Microsoft.Web/sites/slots', parameters('WebSiteName'), 'Dev')]"
               ],
               "properties": {
-                "DefaultConnectionString": {
-                  //"value": "[concat('Data Source=114.143.207.109; Initial Catalog=WWI;User ID=sa;Password=ROOT#123; Integrated Security=False; MultipleActiveResultSets=True', ';')]",
-                  //"value": "[concat('server=localhost;User Id=root;password=RooT@#31*;database=WWINewDB;persistsecurityinfo=True;')]",
+                "DefaultConnectionString": {                 
                   "value": "[concat('server=114.143.207.108;User Id=devuser;password=ROOT#123;database=wwi;persistsecurityinfo=True')]",
                   "type": "SQLAzure"
                 }
@@ -700,9 +696,7 @@
                 "[resourceId('Microsoft.Web/sites/slots', parameters('WebSiteName'), 'Staging')]"
               ],
               "properties": {
-                "DefaultConnectionString": {
-                  //"value": "[concat('Data Source=114.143.207.109; Initial Catalog=WWI;User ID=sa;Password=ROOT#123; Integrated Security=False; MultipleActiveResultSets=True', ';')]",
-                  //"value": "[concat('server=localhost;User Id=root;password=RooT@#31*;database=WWINewDB;persistsecurityinfo=True;')]",
+                "DefaultConnectionString": {                
                   "value": "[concat('server=114.143.207.108;User Id=devuser;password=ROOT#123;database=wwi;persistsecurityinfo=True')]",
                   "type": "SQLAzure"
                 }

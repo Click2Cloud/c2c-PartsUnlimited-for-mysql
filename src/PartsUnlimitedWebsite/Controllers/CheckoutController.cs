@@ -10,6 +10,7 @@ using PartsUnlimited.Models;
 using Stripe;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
 using System.Text.RegularExpressions;
@@ -40,26 +41,13 @@ namespace PartsUnlimited.Controllers
         {
             var id = _userManager.GetUserId(User);
             var user = await _db.Users.FirstOrDefaultAsync(o => o.Id == id);
-            user.Name = user.Name;  //"John";
-            user.Email = user.Email;  //"john@mapy.com";
-            user.UserName = user.UserName; // "john@mapy.com";
-            //var Phone = "314-612-3604";
-            //var Address = "8926 Johnson Parkway";
-            //var City = "Saint Louis";
-            //var State = "Missouri";
-            //var Country = "United States";
-            //var PostalCode = "63101";
+            user.Name = user.Name; 
+            user.Email = user.Email;  
+            user.UserName = user.UserName;         
             var order = new Order
             {
                 Name = user.Name,
-                Email = user.Email,
-                //Phone = Phone,
-                //Username = user.UserName,
-                //Address = Address,
-                //City = City,
-                //State = State,
-                //PostalCode = PostalCode,
-                //Country = Country
+                Email = user.Email,               
             };
 
             return View(order);
@@ -130,50 +118,6 @@ namespace PartsUnlimited.Controllers
             {
                 return View("Error");
             }
-        }
-
-        public IActionResult Payment()
-        {
-            return View();
-        }
-        public IActionResult Charge(string stripeEmail, string stripeToken)
-        {
-            var customers = new CustomerService();
-            var charges = new ChargeService();
-            string OrderID = TempData["OrderID"].ToString();
-            string FinalPay  = HttpContext.Session.GetString("FinalAmount");
-            decimal a = Convert.ToDecimal(FinalPay);
-            long Pay =Decimal.ToInt64(a);
-            var customer = customers.Create(new CustomerCreateOptions
-            {
-                Email = stripeEmail,
-                Source = stripeToken
-            });
-
-            var charge = charges.Create(new ChargeCreateOptions
-            {
-                Amount = 500,
-                Description = "Sample Charge",
-                Currency = "usd",
-                Customer = customer.Id,
-                ReceiptEmail = stripeEmail,              
-                Metadata = new Dictionary<string, string>()
-                {
-                    //{"OrderId","acb1234" }
-                     {"OrderId",OrderID }
-                }
-            });
-
-            if (charge.Status == "succeeded")
-            {
-                string BalanceTransactionId = charge.BalanceTransactionId;
-                return View();
-            }
-            else
-            {
-                string FailuarDetails = charge.FailureMessage + "\n" + charge.FailureCode;
-            }
-            return View();
-        }
+        }     
     }
 }
