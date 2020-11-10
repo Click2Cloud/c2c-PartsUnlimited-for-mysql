@@ -3,6 +3,11 @@
     "UserName": "Administrator@test.com",
     "Password": "YouShouldChangeThisPassword1!"
   },
+
+  "UserRole": {
+    "NewUserName": "john@mapy.com",
+    "Password": "Newuser@123"
+  },
   "CDN": {
     "images": "/images",
     "Scripts": {
@@ -41,6 +46,7 @@
   },
   "AllowedHosts": "*",
   "ConnectionStrings": {
-    "DefaultConnectionString": "server=114.143.207.108;User Id=devuser;password=ROOT#123;database=wwi;persistsecurityinfo=True;"
+    "DefaultConnectionString": "server=114.143.207.108;User Id=devuser;password=ROOT#123;database=wwi;persistsecurityinfo=True;",
+    //"DefaultConnectionString": "server=localhost;User Id=root;password=RooT@#31*;database=wwibackup;persistsecurityinfo=True;"
   }
 }

@@ -23,6 +23,11 @@ namespace PartsUnlimited.Models
         private static string DefaultAdminNameKey = "UserName";
         private static string DefaultAdminPasswordKey = "Password";
 
+        //for user
+        private static string UserRoleSectionName = "UserRole";
+        private static string DefaultUserNameKey = "NewUserName";
+        private static string DefaultUserPasswordKey = "Password";
+
         public static async Task InitializePartsUnlimitedDatabaseAsync(IServiceProvider serviceProvider, bool createUser = true)
         {
             using (var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
@@ -40,6 +45,7 @@ namespace PartsUnlimited.Models
                 {
                     await InsertTestData(serviceProvider);
                     await CreateAdminUser(serviceProvider);
+                    await CreateUser(serviceProvider);
                 }
             }
         }
@@ -123,6 +129,37 @@ namespace PartsUnlimited.Models
             }
         }
 
+        //User creating code by safi on 10-11-2020
+        private static async Task CreateUser(IServiceProvider serviceProvider)
+        {
+            IConfigurationSection configuration = GetUserRoleConfiguration(serviceProvider);
+            UserManager<ApplicationUser> userManager = serviceProvider.GetService<UserManager<ApplicationUser>>();
+
+            var user = await userManager.FindByNameAsync(configuration[DefaultUserNameKey]);
+
+            if (user == null)
+            {
+                user = new ApplicationUser { UserName = configuration[DefaultUserNameKey] };
+                await userManager.CreateAsync(user, configuration[DefaultUserPasswordKey]);                
+            }
+        }
+
+
+        //User Configuration
+
+        private static IConfigurationSection GetUserRoleConfiguration(IServiceProvider serviceProvider)
+        {
+            var appEnv = serviceProvider.GetService<IHostingEnvironment>();
+
+            var builder = new ConfigurationBuilder().SetBasePath(appEnv.ContentRootPath)
+                        .AddJsonFile("config.json")
+                        .AddEnvironmentVariables();
+            var configuration = builder.Build();
+            return configuration.GetSection(UserRoleSectionName);
+        }
+
+
+
         /// <summary>
         /// Generate an enumeration of rainchecks.  The random number generator uses a seed to ensure 
         /// that the sequence is consistent, but provides somewhat random looking data.
@@ -154,11 +191,11 @@ namespace PartsUnlimited.Models
 
         public static IEnumerable<Category> GetCategories()
         {
-            yield return new Category { Name = "Brakes", Description = "Brakes description", ImageUrl = "product_brakes_disc.jpg" };
-            yield return new Category { Name = "Lighting", Description = "Lighting description", ImageUrl = "product_lighting_headlight.jpg" };
-            yield return new Category { Name = "Wheels & Tires", Description = "Wheels & Tires description", ImageUrl = "product_wheel_rim.jpg" };
-            yield return new Category { Name = "Batteries", Description = "Batteries description", ImageUrl = "product_batteries_basic-battery.jpg" };
-            yield return new Category { Name = "Oil", Description = "Oil description", ImageUrl = "product_oil_premium-oil.jpg" };
+            yield return new Category { Name = "Brakes", Description = "Brakes description", ImageUrl = "product_brakes_disc.jpg",DisplayOrder=2,Published=true };
+            yield return new Category { Name = "Lighting", Description = "Lighting description", ImageUrl = "product_lighting_headlight.jpg", DisplayOrder = 5, Published = true };
+            yield return new Category { Name = "Wheels & Tires", Description = "Wheels & Tires description", ImageUrl = "product_wheel_rim.jpg", DisplayOrder = 1, Published = true };
+            yield return new Category { Name = "Batteries", Description = "Batteries description", ImageUrl = "product_batteries_basic-battery.jpg", DisplayOrder = 3, Published = true };
+            yield return new Category { Name = "Oil", Description = "Oil description", ImageUrl = "product_oil_premium-oil.jpg", DisplayOrder = 4, Published = true };
         }
 
         public static void PopulateOrderHistory(IServiceProvider serviceProvider, IEnumerable<Product> products)
