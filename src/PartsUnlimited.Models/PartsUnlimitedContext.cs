@@ -22,6 +22,7 @@ namespace PartsUnlimited.Models
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Raincheck> RainChecks { get; set; }
         public DbSet<Store> Stores { get; set; }
+        
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -31,7 +32,8 @@ namespace PartsUnlimited.Models
             builder.Entity<CartItem>().HasKey(c => c.CartItemId);
             builder.Entity<OrderDetail>().HasKey(o => o.OrderDetailId);
             builder.Entity<Raincheck>().HasKey(o => o.RaincheckId);
-            builder.Entity<Store>().HasKey(o => o.StoreId);
+            builder.Entity<Store>().HasKey(o => o.StoreId);           
+            
 
             base.OnModelCreating(builder);
         }

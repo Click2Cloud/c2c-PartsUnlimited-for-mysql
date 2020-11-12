@@ -45,7 +45,7 @@ namespace PartsUnlimited.Models
                 {
                     await InsertTestData(serviceProvider);
                     await CreateAdminUser(serviceProvider);
-                    await CreateUser(serviceProvider);
+                    await CreateUser(serviceProvider);                    
                 }
             }
         }
@@ -63,6 +63,9 @@ namespace PartsUnlimited.Models
 
             var rainchecks = GetRainchecks(stores, products).ToList();
             await AddOrUpdateAsync(serviceProvider, a => a.RaincheckId, rainchecks);
+
+            //var aspnetusers = GetUsers().ToList();
+            //await AddOrUpdateAsync(serviceProvider, a => a.Name, aspnetusers);
 
             PopulateOrderHistory(serviceProvider, products);
         }
@@ -93,12 +96,12 @@ namespace PartsUnlimited.Models
             }
         }
 
-       /// <summary>
-       /// Returns configuration section for AdminRole.
-       /// </summary>
-       /// <param name="serviceProvider"></param>
-       /// <returns></returns>
-       private static IConfigurationSection GetAdminRoleConfiguration(IServiceProvider serviceProvider)
+        /// <summary>
+        /// Returns configuration section for AdminRole.
+        /// </summary>
+        /// <param name="serviceProvider"></param>
+        /// <returns></returns>
+        private static IConfigurationSection GetAdminRoleConfiguration(IServiceProvider serviceProvider)
         {
             var appEnv = serviceProvider.GetService<IHostingEnvironment>();
 
@@ -140,8 +143,11 @@ namespace PartsUnlimited.Models
             if (user == null)
             {
                 user = new ApplicationUser { UserName = configuration[DefaultUserNameKey] };
-                await userManager.CreateAsync(user, configuration[DefaultUserPasswordKey]);                
+                await userManager.CreateAsync(user, configuration[DefaultUserPasswordKey]);
             }
+
+            //var user = new ApplicationUser { UserName = "john@mapy.com", PasswordHash = "Newuser@123" };
+            //await userManager.CreateAsync(user,user.PasswordHash);
         }
 
 
@@ -191,7 +197,7 @@ namespace PartsUnlimited.Models
 
         public static IEnumerable<Category> GetCategories()
         {
-            yield return new Category { Name = "Brakes", Description = "Brakes description", ImageUrl = "product_brakes_disc.jpg",DisplayOrder=2,Published=true };
+            yield return new Category { Name = "Brakes", Description = "Brakes description", ImageUrl = "product_brakes_disc.jpg", DisplayOrder = 2, Published = true };
             yield return new Category { Name = "Lighting", Description = "Lighting description", ImageUrl = "product_lighting_headlight.jpg", DisplayOrder = 5, Published = true };
             yield return new Category { Name = "Wheels & Tires", Description = "Wheels & Tires description", ImageUrl = "product_wheel_rim.jpg", DisplayOrder = 1, Published = true };
             yield return new Category { Name = "Batteries", Description = "Batteries description", ImageUrl = "product_batteries_basic-battery.jpg", DisplayOrder = 3, Published = true };
@@ -580,6 +586,15 @@ namespace PartsUnlimited.Models
                 LeadTime = 0,
                 RecommendationId = 18
             };
+        }
+
+
+
+        //Testing purpose
+
+        public static IEnumerable<ApplicationUser> GetUsers()
+        {
+            yield return new ApplicationUser { UserName = "john@mapy.com", PasswordHash = "Newuser@123", EmailConfirmed = true };
         }
     }
 }

@@ -44,9 +44,11 @@
     "SecretKey": "sk_test_4eC39HqLyjWDarjtT1zdp7dc",
     "PublishableKey": "pk_test_TYooMQauvdEDq54NiTphI7jx"
   },
-  "AllowedHosts": "*",
+
   "ConnectionStrings": {
-    "DefaultConnectionString": "server=114.143.207.108;User Id=devuser;password=ROOT#123;database=wwi;persistsecurityinfo=True;",
-    //"DefaultConnectionString": "server=localhost;User Id=root;password=RooT@#31*;database=wwibackup;persistsecurityinfo=True;"
+    "DefaultConnectionString": "server=114.143.207.108;User Id=devuser;password=ROOT#123;database=wwi1;persistsecurityinfo=True;",
+    //"DefaultConnectionString": "server=localhost;User Id=root;password=RooT@#31*;database=wwinewone;persistsecurityinfo=True;",
+    "AllowedHosts": "*"
+    //"DefaultConnectionString": "server=192.168.0.59;User Id=testuser;password=ROOT#123;database=wwibackup;persistsecurityinfo=True;"
   }
 }

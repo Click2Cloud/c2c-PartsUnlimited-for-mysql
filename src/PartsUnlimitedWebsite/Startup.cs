@@ -290,6 +290,7 @@ using PartsUnlimited.Search;
 using PartsUnlimited.Security;
 using PartsUnlimited.Telemetry;
 using PartsUnlimited.WebsiteConfiguration;
+using Microsoft.Extensions.Hosting;
 using System;
 using Stripe;
 
@@ -343,8 +344,7 @@ namespace PartsUnlimited
             // Add implementations
             services.AddSingleton<IMemoryCache, MemoryCache>();
             services.AddScoped<IOrdersQuery, OrdersQuery>();
-            services.AddScoped<IRaincheckQuery, RaincheckQuery>();
-
+            services.AddScoped<IRaincheckQuery, RaincheckQuery>();            
             services.AddSingleton<ITelemetryProvider, EmptyTelemetryProvider>();
             services.AddScoped<IProductSearch, StringContainsProductSearch>();
 
@@ -380,6 +380,7 @@ namespace PartsUnlimited
             // Add session related services.
             //services.AddCaching();
             services.AddSession();
+            
         }
 
         private void SetupRecommendationService(IServiceCollection services)
@@ -419,7 +420,7 @@ namespace PartsUnlimited
             Configure(app);
         }
 
-        //This method is invoked when ASPNETCORE_ENVIRONMENT is 'Production'
+        ////This method is invoked when ASPNETCORE_ENVIRONMENT is 'Production'
         //The allowed values are Development,Staging and Production
         public void ConfigureProduction(IApplicationBuilder app)
         {
@@ -429,19 +430,32 @@ namespace PartsUnlimited
 
         public void Configure(IApplicationBuilder app)
         {
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //}
+            //else
+            //{
+            //    app.UseExceptionHandler("/Home/Error");
+            //    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+            //    app.UseHsts();
+            //}
             StripeConfiguration.ApiKey = Configuration.GetSection("Stripe")["SecretKey"];
             // Configure Session.
             app.UseSession();
-
+            app.UseCookiePolicy();
             // Add static files to the request pipeline
             app.UseStaticFiles();
 
             // Add cookie-based authentication to the request pipeline
             app.UseAuthentication();
-
+          
             AppBuilderLoginProviderExtensions.AddLoginProviders(service, new ConfigurationLoginProviders(Configuration.GetSection("Authentication")));
             // Add login providers (Microsoft/AzureAD/Google/etc).  This must be done after `app.UseIdentity()`
             //app.AddLoginProviders( new ConfigurationLoginProviders(Configuration.GetSection("Authentication")));
+
+
+            
 
             // Add MVC to the request pipeline
             app.UseMvc(routes =>
@@ -460,6 +474,6 @@ namespace PartsUnlimited
                     name: "api",
                     template: "{controller}/{id?}");
             });
-        }
+        }      
     }
 }
