@@ -41,13 +41,15 @@
     }
   },
   "Stripe": {
-    "SecretKey": "sk_test_4eC39HqLyjWDarjtT1zdp7dc",
-    "PublishableKey": "pk_test_TYooMQauvdEDq54NiTphI7jx"
+    //"SecretKey": "sk_test_4eC39HqLyjWDarjtT1zdp7dc",
+    //"PublishableKey": "pk_test_TYooMQauvdEDq54NiTphI7jx"
+    "SecretKey": "sk_test_51HlUXSD83Jjwy8LuW8Q6KAZr6oZmqV4OrKLPtv8S7EgSq9Ind1VlIiyGkUxlccnC7UUgOTfdDlOB43fnB7sA3oVw00766ZioM7",
+    "PublishableKey": "pk_test_51HlUXSD83Jjwy8LuzcaLSI7VvBXSCiFxR6RZJ9f2b6e65WlkzuTe2stsq04sxv5huW6iDzbj23fKfiZt61GZ9gGM00KDy5lBtB"
   },
 
   "ConnectionStrings": {
-    "DefaultConnectionString": "server=114.143.207.108;User Id=devuser;password=ROOT#123;database=wwi1;persistsecurityinfo=True;",
-    //"DefaultConnectionString": "server=localhost;User Id=root;password=RooT@#31*;database=wwinewone;persistsecurityinfo=True;",
+    //"DefaultConnectionString": "server=114.143.207.108;User Id=devuser;password=ROOT#123;database=wwi1;persistsecurityinfo=True;",
+    "DefaultConnectionString": "server=localhost;User Id=root;password=RooT@#31*;database=wwinewone;persistsecurityinfo=True;",
     "AllowedHosts": "*"
     //"DefaultConnectionString": "server=192.168.0.59;User Id=testuser;password=ROOT#123;database=wwibackup;persistsecurityinfo=True;"
   }

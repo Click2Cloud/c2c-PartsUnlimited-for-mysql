@@ -18,13 +18,9 @@
                     
                 </div>
             </div>
-        </div>
-        @{ 
-            var TotalValue = TempData["FinalPayment"];
-        }
+        </div>     
         <div class='form-row'>
-            <div class='col-md-12 form-group'>
-                
+            <div class='col-md-12 form-group'>                
                 <script src="//checkout.stripe.com/v2/checkout.js"
                         class="stripe-button"
                         data-key="@Stripe.Value.PublishableKey"

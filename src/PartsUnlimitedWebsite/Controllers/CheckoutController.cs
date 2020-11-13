@@ -17,6 +17,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Order = PartsUnlimited.Models.Order;
 
+
 namespace PartsUnlimited.Controllers
 {
     [Authorize]
@@ -119,6 +120,67 @@ namespace PartsUnlimited.Controllers
                 return View("Error");
             }
         }
-        
+
+        //payment code
+        public IActionResult Payment()
+        {
+            return View();
+        }
+        public async Task<IActionResult> Charge(string stripeEmail, string stripeToken)
+        {
+            string SubTotalValue = "";
+            long PayAmount = 0;
+            int OrderID =Convert.ToInt32(TempData["OrderID"]);
+            var getCustomerDetails = _db.Orders.Where(o => o.OrderId == OrderID).ToList();
+            var orderDetails = _db.OrderDetails.Where(od => od.OrderId == OrderID).ToList();
+            foreach (var item in orderDetails)
+            {
+                var product = _db.Products.Single(a => a.ProductId == item.ProductId);               
+                var paymentOrderDetails = new PaymentDetails
+                {
+                    OrderId = item.OrderId,
+                    Username= getCustomerDetails[0].Name,
+                    ProductDetails=item.Product.ProductDetails,
+                    Price= item.UnitPrice,
+                    Title=item.Product.Title,                   
+
+                };
+
+                SubTotalValue = HttpContext.Session.GetString("FinalAmount");
+                PayAmount = long.Parse(SubTotalValue.ToString().Replace(".",string.Empty));
+                _db.PaymentDetails.Add(paymentOrderDetails);
+                await _db.SaveChangesAsync(HttpContext.RequestAborted);
+            }
+
+            var options = new PaymentIntentCreateOptions
+            {               
+                Shipping = new ChargeShippingOptions
+                {
+                    Name = getCustomerDetails[0].Name,                    
+                    Address = new AddressOptions
+                    {
+                        Line1 = getCustomerDetails[0].Address,
+                        PostalCode = getCustomerDetails[0].PostalCode,
+                        City = getCustomerDetails[0].City,
+                        State = getCustomerDetails[0].State,
+                        Country = getCustomerDetails[0].Country,
+                    },
+                },
+
+                Amount = PayAmount,//050,
+                Currency = "usd"
+
+            };
+
+            var service = new PaymentIntentService();
+            var intent = service.Create(options);
+            return View();
+        }
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
     }
 }

@@ -87,6 +87,7 @@ namespace PartsUnlimited.Models
         public List<CartItem> GetCartItems()
         {
             var cartItems = _db.CartItems.Where(cart => cart.CartId == ShoppingCartId).ToList();
+           
             //TODO: Auto population of the related product data not available until EF feature is lighted up.
             foreach (var cartItem in cartItems)
             {
