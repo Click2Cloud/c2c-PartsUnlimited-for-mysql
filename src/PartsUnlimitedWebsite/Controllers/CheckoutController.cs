@@ -129,7 +129,7 @@ namespace PartsUnlimited.Controllers
         public async Task<IActionResult> Charge(string stripeEmail, string stripeToken)
         {
             string LoginEmailId=HttpContext.Session.GetString("LoginEmail");
-            ApplicationUser applicationUser=_db.Users.Where(m => m.Email == LoginEmailId).Single();
+            ApplicationUser applicationUser=_db.Users.Where(m => m.Email == LoginEmailId).Single();            
             string SubTotalValue = "";
             decimal SubTotal = 0.00M;
             long PayAmount = 0;
@@ -152,8 +152,6 @@ namespace PartsUnlimited.Controllers
                     Title = item.Product.Title,
                     Quantity = item.Quantity,
                     TotalPrice=item.Quantity*item.UnitPrice,
-                    
-
                 };
 
                 shipping= ItemCount * (decimal)5.00;
@@ -176,8 +174,6 @@ namespace PartsUnlimited.Controllers
                 ShippingAmount=shipping,
                 TaxAmount=tax,
                 TotalAmount=SubTotal,
-
-
             };
 
             _db.PaymentTransactionDetails.Add(paymentTransactionDetails);
