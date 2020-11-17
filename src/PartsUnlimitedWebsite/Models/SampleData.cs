@@ -13,6 +13,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Diagnostics;
+
 
 
 namespace PartsUnlimited.Models
@@ -134,17 +136,21 @@ namespace PartsUnlimited.Models
 
         //User creating code by safi on 10-11-2020
         private static async Task CreateUser(IServiceProvider serviceProvider)
-        {
-            IConfigurationSection configuration = GetUserRoleConfiguration(serviceProvider);
-            UserManager<ApplicationUser> userManager = serviceProvider.GetService<UserManager<ApplicationUser>>();
+        {          
 
-            var user = await userManager.FindByNameAsync(configuration[DefaultUserNameKey]);
+                IConfigurationSection configuration = GetUserRoleConfiguration(serviceProvider);
+                UserManager<ApplicationUser> userManager = serviceProvider.GetService<UserManager<ApplicationUser>>();
 
-            if (user == null)
-            {
-                user = new ApplicationUser { UserName = configuration[DefaultUserNameKey] };
-                await userManager.CreateAsync(user, configuration[DefaultUserPasswordKey]);
-            }
+                var user = await userManager.FindByNameAsync(configuration[DefaultUserNameKey]);
+
+                if (user == null)
+                {
+                    user = new ApplicationUser { UserName = configuration[DefaultUserNameKey] };
+                    await userManager.CreateAsync(user, configuration[DefaultUserPasswordKey]);
+
+                } 
+            
+            
 
             //var user = new ApplicationUser { UserName = "john@mapy.com", PasswordHash = "Newuser@123" };
             //await userManager.CreateAsync(user,user.PasswordHash);

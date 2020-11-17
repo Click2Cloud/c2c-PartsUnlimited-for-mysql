@@ -106,7 +106,7 @@
 //            // Add session related services.
 //            //services.AddCaching();
 //            services.AddSession();
-//            services.AddSession(options => 
+//            services.AddSession(options =>
 //            {
 //                options.Cookie.SameSite = SameSiteMode.None;
 //                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
@@ -130,14 +130,15 @@
 
 //            services.AddSession(options =>
 //            {
-//               options.Cookie.SameSite = SameSiteMode.None;
-//               options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-//               options.Cookie.IsEssential = true;
+//                options.Cookie.SameSite = SameSiteMode.None;
+//                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+//                options.Cookie.IsEssential = true;
 //            });
 
-//            services.AddAntiforgery(o => { 
+//            services.AddAntiforgery(o =>
+//            {
 //                o.SuppressXFrameOptionsHeader = true;
-//                o.Cookie.SameSite = SameSiteMode.None; 
+//                o.Cookie.SameSite = SameSiteMode.None;
 //            });
 
 //            services.AddCors(o => o.AddPolicy("AllowAll", builder =>
@@ -306,6 +307,7 @@ namespace PartsUnlimited
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -344,7 +346,7 @@ namespace PartsUnlimited
             // Add implementations
             services.AddSingleton<IMemoryCache, MemoryCache>();
             services.AddScoped<IOrdersQuery, OrdersQuery>();
-            services.AddScoped<IRaincheckQuery, RaincheckQuery>();            
+            services.AddScoped<IRaincheckQuery, RaincheckQuery>();
             services.AddSingleton<ITelemetryProvider, EmptyTelemetryProvider>();
             services.AddScoped<IProductSearch, StringContainsProductSearch>();
 
@@ -380,7 +382,7 @@ namespace PartsUnlimited
             // Add session related services.
             //services.AddCaching();
             services.AddSession();
-            
+
         }
 
         private void SetupRecommendationService(IServiceCollection services)
@@ -449,13 +451,13 @@ namespace PartsUnlimited
 
             // Add cookie-based authentication to the request pipeline
             app.UseAuthentication();
-          
+
             AppBuilderLoginProviderExtensions.AddLoginProviders(service, new ConfigurationLoginProviders(Configuration.GetSection("Authentication")));
             // Add login providers (Microsoft/AzureAD/Google/etc).  This must be done after `app.UseIdentity()`
             //app.AddLoginProviders( new ConfigurationLoginProviders(Configuration.GetSection("Authentication")));
 
 
-            
+
 
             // Add MVC to the request pipeline
             app.UseMvc(routes =>
@@ -474,6 +476,6 @@ namespace PartsUnlimited
                     name: "api",
                     template: "{controller}/{id?}");
             });
-        }      
+        }
     }
 }
