@@ -21,6 +21,7 @@ namespace PartsUnlimited.Models
         DbSet<ApplicationUser> Users { get; }
         DbSet<Raincheck> RainChecks { get; }
         DbSet<Store> Stores { get; }
+        DbSet<PaymentDetails> PaymentDetails { get; }
        
 
         Task<int> SaveChangesAsync(CancellationToken requestAborted);
