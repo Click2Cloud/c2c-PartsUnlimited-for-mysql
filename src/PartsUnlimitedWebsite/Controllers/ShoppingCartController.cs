@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using Microsoft.AspNetCore.Antiforgery;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Primitives;
@@ -41,7 +42,7 @@ namespace PartsUnlimited.Controllers
             var shipping = itemsCount * (decimal)5.00;
             var tax = (subTotal + shipping) * (decimal)0.05;
             var total = subTotal + shipping + tax;
-
+            HttpContext.Session.SetString("CartItemCount", itemsCount.ToString());
             var costSummary = new OrderCostSummary
             {
                 CartSubTotal = subTotal.ToString("C"),

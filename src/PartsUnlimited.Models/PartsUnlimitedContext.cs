@@ -23,6 +23,7 @@ namespace PartsUnlimited.Models
         public DbSet<Raincheck> RainChecks { get; set; }
         public DbSet<Store> Stores { get; set; }
         public DbSet<PaymentDetails> PaymentDetails { get; set; }
+        public DbSet<PaymentTransactionDetails> PaymentTransactionDetails { get; set; }
         
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -35,6 +36,7 @@ namespace PartsUnlimited.Models
             builder.Entity<Raincheck>().HasKey(o => o.RaincheckId);
             builder.Entity<Store>().HasKey(o => o.StoreId);
             builder.Entity<PaymentDetails>().HasKey(p => p.PaymentDetailsID);
+            builder.Entity<PaymentTransactionDetails>().HasKey(t => t.TransactionId);
             
 
             base.OnModelCreating(builder);

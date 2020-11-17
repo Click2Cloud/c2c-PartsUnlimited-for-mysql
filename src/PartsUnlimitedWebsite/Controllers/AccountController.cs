@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -16,6 +17,7 @@ namespace PartsUnlimited.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        
         public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             UserManager = userManager;
@@ -46,11 +48,12 @@ namespace PartsUnlimited.Controllers
             {
                 return View(model);
             }
+            HttpContext.Session.SetString("LoginEmail", model.Email);
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
-
+            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);            
+            
             if (result.Succeeded)
             {
                 return RedirectToLocal(returnUrl);
@@ -133,9 +136,10 @@ namespace PartsUnlimited.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
+            
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email};               
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

@@ -22,6 +22,7 @@ namespace PartsUnlimited.Models
         DbSet<Raincheck> RainChecks { get; }
         DbSet<Store> Stores { get; }
         DbSet<PaymentDetails> PaymentDetails { get; }
+        DbSet<PaymentTransactionDetails> PaymentTransactionDetails { get; }
        
 
         Task<int> SaveChangesAsync(CancellationToken requestAborted);

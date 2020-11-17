@@ -128,29 +128,62 @@ namespace PartsUnlimited.Controllers
         }
         public async Task<IActionResult> Charge(string stripeEmail, string stripeToken)
         {
+            string LoginEmailId=HttpContext.Session.GetString("LoginEmail");
+            ApplicationUser applicationUser=_db.Users.Where(m => m.Email == LoginEmailId).Single();
             string SubTotalValue = "";
+            decimal SubTotal = 0.00M;
             long PayAmount = 0;
+            decimal shipping = 0.00M;
+            decimal tax = 0.00M;
+            int ItemCount =Convert.ToInt32(HttpContext.Session.GetString("CartItemCount"));
             int OrderID =Convert.ToInt32(TempData["OrderID"]);
             var getCustomerDetails = _db.Orders.Where(o => o.OrderId == OrderID).ToList();
             var orderDetails = _db.OrderDetails.Where(od => od.OrderId == OrderID).ToList();
+            SubTotal = getCustomerDetails[0].Total;
             foreach (var item in orderDetails)
             {
-                var product = _db.Products.Single(a => a.ProductId == item.ProductId);               
+                var product = _db.Products.Single(a => a.ProductId == item.ProductId);
                 var paymentOrderDetails = new PaymentDetails
                 {
                     OrderId = item.OrderId,
-                    Username= getCustomerDetails[0].Name,
-                    ProductDetails=item.Product.ProductDetails,
-                    Price= item.UnitPrice,
-                    Title=item.Product.Title,                   
+                    Username = getCustomerDetails[0].Name,
+                    ProductDetails = item.Product.ProductDetails,
+                    Price = item.UnitPrice,
+                    Title = item.Product.Title,
+                    Quantity = item.Quantity,
+                    TotalPrice=item.Quantity*item.UnitPrice,
+                    
 
                 };
+
+                shipping= ItemCount * (decimal)5.00;
+                tax = (SubTotal +shipping) * (decimal)0.05;
 
                 SubTotalValue = HttpContext.Session.GetString("FinalAmount");
                 PayAmount = long.Parse(SubTotalValue.ToString().Replace(".",string.Empty));
                 _db.PaymentDetails.Add(paymentOrderDetails);
                 await _db.SaveChangesAsync(HttpContext.RequestAborted);
             }
+           
+            var paymentTransactionDetails = new PaymentTransactionDetails
+            {
+                CustomerTransactionId = Guid.NewGuid().ToString(),
+                TransactionOrderId =OrderID,
+                CustomerId= applicationUser.Id,
+                TransactionDate=DateTime.Now,
+                TransactionFinalAmount= SubTotalValue,
+                CustomerName=getCustomerDetails[0].Name,
+                ShippingAmount=shipping,
+                TaxAmount=tax,
+                TotalAmount=SubTotal,
+
+
+            };
+
+            _db.PaymentTransactionDetails.Add(paymentTransactionDetails);
+            await _db.SaveChangesAsync(HttpContext.RequestAborted);
+
+
 
             var options = new PaymentIntentCreateOptions
             {               
