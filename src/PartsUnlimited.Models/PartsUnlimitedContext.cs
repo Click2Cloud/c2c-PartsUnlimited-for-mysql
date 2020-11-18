@@ -36,8 +36,9 @@ namespace PartsUnlimited.Models
             builder.Entity<Raincheck>().HasKey(o => o.RaincheckId);
             builder.Entity<Store>().HasKey(o => o.StoreId);
             builder.Entity<PaymentDetails>().HasKey(p => p.PaymentDetailsID);
-            builder.Entity<PaymentTransactionDetails>().HasKey(t => t.TransactionId);
-            
+            builder.Entity<PaymentTransactionDetails>().HasKey(t => t.TransactionId);            
+
+
 
             base.OnModelCreating(builder);
         }

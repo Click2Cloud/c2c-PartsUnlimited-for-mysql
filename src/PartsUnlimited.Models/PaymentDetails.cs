@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace PartsUnlimited.Models
@@ -12,9 +13,13 @@ namespace PartsUnlimited.Models
         public int OrderId { get; set; }
         public string Username { get; set; }
         public string ProductDetails { get; set; }
+
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
         public string Title { get; set; }
         public int Quantity { get; set; }
+
+        [Column(TypeName = "decimal(18,2)")]
         public decimal TotalPrice { get; set; }
         public Dictionary<string, string> ProductDetailList
         {

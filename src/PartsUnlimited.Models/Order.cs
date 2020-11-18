@@ -4,6 +4,7 @@
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PartsUnlimited.Models
 {
@@ -63,6 +64,7 @@ namespace PartsUnlimited.Models
 
         [BindNever]
         [ScaffoldColumn(false)]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Total { get; set; }
 
         [BindNever]
