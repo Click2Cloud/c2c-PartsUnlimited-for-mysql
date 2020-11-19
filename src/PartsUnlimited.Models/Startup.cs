@@ -44,7 +44,8 @@ namespace PartsUnlimited.Models
                 services.AddEntityFrameworkSqlServer()
                       .AddDbContext<PartsUnlimitedContext>(options =>
                       {
-                          options.UseSqlServer(sqlConnectionString);
+                          //options.UseSqlServer(sqlConnectionString);
+                          options.UseMySql(sqlConnectionString);
                       });
             }
 

@@ -294,15 +294,15 @@ using PartsUnlimited.WebsiteConfiguration;
 using Microsoft.Extensions.Hosting;
 using System;
 using Stripe;
-
-
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace PartsUnlimited
 {
     public class Startup
     {
         public IConfiguration Configuration { get; }
-        public IServiceCollection service { get; private set; }
+        public IServiceCollection service { get; private set;}
 
         public Startup(IConfiguration configuration)
         {
@@ -318,10 +318,19 @@ namespace PartsUnlimited
             var sqlConnectionString = Configuration[ConfigurationPath.Combine("ConnectionStrings", "DefaultConnectionString")];
             var useInMemoryDatabase = string.IsNullOrWhiteSpace(sqlConnectionString);
 
-            if (useInMemoryDatabase || runningOnMono)
+
+            services.Configure<CookiePolicyOptions>(options =>
             {
-                sqlConnectionString = "";
-            }
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            //if (useInMemoryDatabase || runningOnMono)
+            //{
+            //    sqlConnectionString = "";
+            //}
 
             // Add EF services to the services container
             services.AddDbContext<PartsUnlimitedContext>();
@@ -344,26 +353,25 @@ namespace PartsUnlimited
             });
 
             // Add implementations
-            services.AddSingleton<IMemoryCache, MemoryCache>();
-            services.AddScoped<IOrdersQuery, OrdersQuery>();
-            services.AddScoped<IRaincheckQuery, RaincheckQuery>();
-            services.AddSingleton<ITelemetryProvider, EmptyTelemetryProvider>();
-            services.AddScoped<IProductSearch, StringContainsProductSearch>();
+            //services.AddSingleton<IMemoryCache, MemoryCache>();
+            //services.AddScoped<IOrdersQuery, OrdersQuery>();
+            //services.AddScoped<IRaincheckQuery, RaincheckQuery>();
+            //services.AddSingleton<ITelemetryProvider, EmptyTelemetryProvider>();
+            //services.AddScoped<IProductSearch, StringContainsProductSearch>();
 
-            SetupRecommendationService(services);
+            //SetupRecommendationService(services);
 
-            services.AddScoped<IWebsiteOptions>(p =>
-            {
-                var telemetry = p.GetRequiredService<ITelemetryProvider>();
+            //services.AddScoped<IWebsiteOptions>(p =>
+            //{
+            //    var telemetry = p.GetRequiredService<ITelemetryProvider>();
 
-                return new ConfigurationWebsiteOptions(Configuration.GetSection("WebsiteOptions"), telemetry);
-            });
+            //    return new ConfigurationWebsiteOptions(Configuration.GetSection("WebsiteOptions"), telemetry);
+            //});
 
             services.AddScoped<IApplicationInsightsSettings>(p =>
             {
                 return new ConfigurationApplicationInsightsSettings(Configuration.GetSection(ConfigurationPath.Combine("Keys", "ApplicationInsights")));
             });
-
             services.AddApplicationInsightsTelemetry(Configuration);
 
             // Associate IPartsUnlimitedContext and PartsUnlimitedContext with context
@@ -371,13 +379,13 @@ namespace PartsUnlimited
             services.AddTransient(x => new PartsUnlimitedContext(sqlConnectionString));
 
             // We need access to these settings in a static extension method, so DI does not help us :(
-            ContentDeliveryNetworkExtensions.Configuration = new ContentDeliveryNetworkConfiguration(Configuration.GetSection("CDN"));
+            //ContentDeliveryNetworkExtensions.Configuration = new ContentDeliveryNetworkConfiguration(Configuration.GetSection("CDN"));
             services.Configure<PaymentSettings>(Configuration.GetSection("Stripe"));
             // Add MVC services to the services container
             services.AddMvc();
 
             //Add InMemoryCache
-            services.AddSingleton<IMemoryCache, MemoryCache>();
+            //services.AddSingleton<IMemoryCache, MemoryCache>();
 
             // Add session related services.
             //services.AddCaching();
@@ -385,56 +393,61 @@ namespace PartsUnlimited
 
         }
 
-        private void SetupRecommendationService(IServiceCollection services)
-        {
-            var azureMlConfig = new AzureMLFrequentlyBoughtTogetherConfig(Configuration.GetSection(ConfigurationPath.Combine("Keys", "AzureMLFrequentlyBoughtTogether")));
+        //private void SetupRecommendationService(IServiceCollection services)
+        //{
+        //    var azureMlConfig = new AzureMLFrequentlyBoughtTogetherConfig(Configuration.GetSection(ConfigurationPath.Combine("Keys", "AzureMLFrequentlyBoughtTogether")));
 
-            // If keys are not available for Azure ML recommendation service, register an empty recommendation engine
-            if (string.IsNullOrEmpty(azureMlConfig.AccountKey) || string.IsNullOrEmpty(azureMlConfig.ModelName))
-            {
-                services.AddSingleton<IRecommendationEngine, EmptyRecommendationsEngine>();
-            }
-            else
-            {
-                services.AddSingleton<IAzureMLAuthenticatedHttpClient, AzureMLAuthenticatedHttpClient>();
-                services.AddSingleton<IAzureMLFrequentlyBoughtTogetherConfig>(azureMlConfig);
-                services.AddScoped<IRecommendationEngine, AzureMLFrequentlyBoughtTogetherRecommendationEngine>();
-            }
-        }
+        //    // If keys are not available for Azure ML recommendation service, register an empty recommendation engine
+        //    if (string.IsNullOrEmpty(azureMlConfig.AccountKey) || string.IsNullOrEmpty(azureMlConfig.ModelName))
+        //    {
+        //        services.AddSingleton<IRecommendationEngine, EmptyRecommendationsEngine>();
+        //    }
+        //    else
+        //    {
+        //        services.AddSingleton<IAzureMLAuthenticatedHttpClient, AzureMLAuthenticatedHttpClient>();
+        //        services.AddSingleton<IAzureMLFrequentlyBoughtTogetherConfig>(azureMlConfig);
+        //        services.AddScoped<IRecommendationEngine, AzureMLFrequentlyBoughtTogetherRecommendationEngine>();
+        //    }
+        //}
 
-        //This method is invoked when ASPNETCORE_ENVIRONMENT is 'Development' or is not defined
-        //The allowed values are Development,Staging and Production
-        public void ConfigureDevelopment(IApplicationBuilder app)
-        {
-            //Display custom error page in production when error occurs
-            //During development use the ErrorPage middleware to display error information in the browser
-            app.UseDeveloperExceptionPage();
-            app.UseDatabaseErrorPage();
+        ////This method is invoked when ASPNETCORE_ENVIRONMENT is 'Development' or is not defined
+        ////The allowed values are Development,Staging and Production
+        //public void ConfigureDevelopment(IApplicationBuilder app)
+        //{
+        //    //Display custom error page in production when error occurs
+        //    //During development use the ErrorPage middleware to display error information in the browser
+        //    app.UseDeveloperExceptionPage();
+        //    app.UseDatabaseErrorPage();
 
-            Configure(app);
-        }
+        //    Configure(app);
+        //}
 
         //This method is invoked when ASPNETCORE_ENVIRONMENT is 'Staging'
         //The allowed values are Development,Staging and Production
-        public void ConfigureStaging(IApplicationBuilder app)
-        {
-            app.UseExceptionHandler("/Home/Error");
-            Configure(app);
-        }
+        //public void ConfigureStaging(IApplicationBuilder app)
+        //{
+        //    app.UseExceptionHandler("/Home/Error");
+        //    Configure(app);
+        //}
 
         ////This method is invoked when ASPNETCORE_ENVIRONMENT is 'Production'
         //The allowed values are Development,Staging and Production
-        public void ConfigureProduction(IApplicationBuilder app)
-        {
-            app.UseExceptionHandler("/Home/Error");
-            Configure(app);
-        }
+        //public void ConfigureProduction(IApplicationBuilder app)
+        //{
+        //    app.UseExceptionHandler("/Home/Error");
+        //    Configure(app);
+        //}
 
         public void Configure(IApplicationBuilder app)
         {
-            //if (env.IsDevelopment())
+            //var builder = new ConfigurationBuilder()
+            //   .AddJsonFile("config.json")
+            //   .AddJsonFile($"config.{env.EnvironmentName}.json", optional: true);
+            //if (env.IsProduction())
             //{
-            //    app.UseDeveloperExceptionPage();
+            //    //app.UseDeveloperExceptionPage();
+            //    builder.AddUserSecrets("AdminRole");
+            //    builder.AddApplicationInsightsSettings(developerMode: true);
             //}
             //else
             //{
@@ -445,7 +458,7 @@ namespace PartsUnlimited
             StripeConfiguration.ApiKey = Configuration.GetSection("Stripe")["SecretKey"];
             // Configure Session.
             app.UseSession();
-            app.UseCookiePolicy();
+            //app.UseCookiePolicy();
             // Add static files to the request pipeline
             app.UseStaticFiles();
 
@@ -479,3 +492,96 @@ namespace PartsUnlimited
         }
     }
 }
+
+
+//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Threading.Tasks;
+//using Microsoft.AspNetCore.Builder;
+//using Microsoft.AspNetCore.Hosting;
+//using Microsoft.AspNetCore.Http;
+//using Microsoft.AspNetCore.HttpsPolicy;
+//using Microsoft.AspNetCore.Identity;
+//using Microsoft.AspNetCore.Identity.UI;
+//using Microsoft.AspNetCore.Mvc;
+//using Microsoft.EntityFrameworkCore;
+//using Microsoft.Extensions.Configuration;
+//using Microsoft.Extensions.DependencyInjection;
+//using PartsUnlimited.Models;
+
+
+//namespace PartsUnlimited
+//{
+//    public class Startup
+//    {
+//        public Startup(IConfiguration configuration)
+//        {
+//            Configuration = configuration;
+//        }
+
+//        public IConfiguration Configuration { get; }
+
+//        // This method gets called by the runtime. Use this method to add services to the container.
+//        public void ConfigureServices(IServiceCollection services)
+//        {
+//            var runningOnMono = Type.GetType("Mono.Runtime") != null;
+//            var sqlConnectionString = Configuration[ConfigurationPath.Combine("ConnectionStrings", "DefaultConnectionString")];
+//            var useInMemoryDatabase = string.IsNullOrWhiteSpace(sqlConnectionString);
+//            services.AddDbContext<PartsUnlimitedContext>();
+//            services.AddTransient<IPartsUnlimitedContext>(x => new PartsUnlimitedContext(sqlConnectionString));
+//            services.AddTransient(x => new PartsUnlimitedContext(sqlConnectionString));
+
+//            services.AddIdentity<ApplicationUser, IdentityRole>()
+//             .AddEntityFrameworkStores<PartsUnlimitedContext>()
+//             .AddDefaultTokenProviders();
+//            services.Configure<CookiePolicyOptions>(options =>
+//            {
+//                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+//                options.CheckConsentNeeded = context => true;
+//                options.MinimumSameSitePolicy = SameSiteMode.None;
+//            });
+
+
+
+
+//            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+//        }
+
+//        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+//        public void Configure(IApplicationBuilder app, IHostingEnvironment env, PartsUnlimitedContext db)
+//        {
+//            if (env.IsDevelopment())
+//            {
+//                app.UseDeveloperExceptionPage();
+//            }
+//            else
+//            {
+//                app.UseExceptionHandler("/Home/Error");
+//                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+//                app.UseHsts();
+//            }
+//            //db.Database.EnsureCreated();
+//            app.UseHttpsRedirection();
+//            app.UseStaticFiles();
+//            app.UseCookiePolicy();
+
+//            app.UseMvc(routes =>
+//            {
+//                routes.MapRoute(
+//                    name: "areaRoute",
+//                    template: "{area:exists}/{controller}/{action}",
+//                    defaults: new { action = "Index" });
+
+//                routes.MapRoute(
+//                    name: "default",
+//                    template: "{controller}/{action}/{id?}",
+//                    defaults: new { controller = "Home", action = "Index" });
+
+//                routes.MapRoute(
+//                    name: "api",
+//                    template: "{controller}/{id?}");
+//            });
+//        }
+//    }
+//}

@@ -44,5 +44,8 @@ namespace PartsUnlimited
                     config.AddJsonFile("config.json", optional: true);
                 })
                 .Build();
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+          WebHost.CreateDefaultBuilder(args)
+              .UseStartup<Startup>();
     }
 }

@@ -44,7 +44,7 @@ namespace PartsUnlimited.Models
             if (!string.IsNullOrWhiteSpace(_connectionString))
             {
                 // optionsBuilder.UseSqlServer(_connectionString);
-                optionsBuilder.UseMySql(_connectionString,b=>b.MigrationsAssembly("PartsUnlimitedWebsite"));
+                optionsBuilder.UseMySql(_connectionString, b => b.MigrationsAssembly("PartsUnlimitedWebsite"));
 
             }
             else
