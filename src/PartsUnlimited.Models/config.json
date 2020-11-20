@@ -4,6 +4,15 @@
     "DefaultConnectionString": "server=localhost;User Id=root;password=RooT@#31*;database=wwinewone;persistsecurityinfo=True;",
     //"DefaultConnectionString": "server=192.168.0.59;User Id=testuser;password=ROOT#123;database=wwibackup;persistsecurityinfo=True;"
     "AllowedHosts": "*"
+  },
+  "AdminRole": {
+    "UserName": "Administrator@test.com",
+    "Password": "YouShouldChangeThisPassword1!"
+  },
+
+  "UserRole": {
+    "NewUserName": "john@mapy.com",
+    "Password": "Newuser@123"
   }
 }
 
