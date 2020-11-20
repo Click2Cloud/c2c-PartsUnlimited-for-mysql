@@ -41,9 +41,9 @@ namespace PartsUnlimited.Controllers
         {
             var id = _userManager.GetUserId(User);
             var user = await _db.Users.FirstOrDefaultAsync(o => o.Id == id);
-            user.Name = user.Name; 
-            user.Email = user.Email;  
-            user.UserName = user.UserName;         
+            //user.Name = user.Name; 
+            user.Email = user.UserName;  
+            //user.UserName = user.UserName;         
             var order = new Order
             {
                 Name = user.Name,

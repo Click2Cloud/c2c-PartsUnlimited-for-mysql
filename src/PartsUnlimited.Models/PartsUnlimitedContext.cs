@@ -49,7 +49,8 @@ namespace PartsUnlimited.Models
             }
             else
             {
-                System.Data.SqlClient.SqlConnectionStringBuilder builder = new System.Data.SqlClient.SqlConnectionStringBuilder(_connectionString);
+                //System.Data.SqlClient.SqlConnectionStringBuilder builder = new System.Data.SqlClient.SqlConnectionStringBuilder(_connectionString);
+                MySql.Data.MySqlClient.MySqlConnectionStringBuilder builder = new MySql.Data.MySqlClient.MySqlConnectionStringBuilder(_connectionString);
                 optionsBuilder.UseInMemoryDatabase("Test");
             }
         }
