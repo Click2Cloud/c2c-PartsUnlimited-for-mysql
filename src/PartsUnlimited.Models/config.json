@@ -1,8 +1,8 @@
 ﻿{
 
   "ConnectionStrings": {
-    //"DefaultConnectionString": "server=114.143.207.108;User Id=devuser;password=ROOT#123;database=wwimysql;persistsecurityinfo=True;"
-    "DefaultConnectionString": "server=localhost;User Id=root;password=RooT@#31*;database=wwinewone;persistsecurityinfo=True;",
+    "DefaultConnectionString": "server=114.143.207.108;User Id=devuser;password=ROOT#123;database=wwimysql;persistsecurityinfo=True;",
+    //"DefaultConnectionString": "server=localhost;User Id=root;password=RooT@#31*;database=wwinewone;persistsecurityinfo=True;",
     //"DefaultConnectionString": "server=192.168.0.59;User Id=testuser;password=ROOT#123;database=wwibackup;persistsecurityinfo=True;"
     "AllowedHosts": "*"
   },
