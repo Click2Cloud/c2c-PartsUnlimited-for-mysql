@@ -606,8 +606,8 @@
           ],
           "properties": {
             "DefaultConnectionString": {
-              //"value": "[concat('server=114.143.207.108;User Id=devuser;password=ROOT#123;database=wwi1;persistsecurityinfo=True')]",
-              "value": "[concat('server=localhost;User Id=root;password=RooT@#31*;database=wwinewone;persistsecurityinfo=True')]",
+              "value": "[concat('server=114.143.207.108;User Id=devuser;password=ROOT#123;database=wwimysql;persistsecurityinfo=True')]",
+              //"value": "[concat('server=localhost;User Id=root;password=RooT@#31*;database=wwinewone;persistsecurityinfo=True')]",
               //"value": "[concat('server=192.168.0.59;User Id=testuser;password=ROOT#123;database=wwibackup;persistsecurityinfo=True')]",
               "type": "SQLAzure",
               "AllowedHosts": "*"
@@ -662,8 +662,8 @@
               ],
               "properties": {
                 "DefaultConnectionString": {
-                  //"value": "[concat('server=114.143.207.108;User Id=devuser;password=ROOT#123;database=wwi1;persistsecurityinfo=True')]",
-                  "value": "[concat('server=localhost;User Id=root;password=RooT@#31*;database=wwinewone;persistsecurityinfo=True')]",
+                  "value": "[concat('server=114.143.207.108;User Id=devuser;password=ROOT#123;database=wwimysql;persistsecurityinfo=True')]",
+                  //"value": "[concat('server=localhost;User Id=root;password=RooT@#31*;database=wwinewone;persistsecurityinfo=True')]",
                   //"value": "[concat('server=192.168.0.59;User Id=testuser;password=ROOT#123;database=wwibackup;persistsecurityinfo=True')]",
                   "type": "SQLAzure",
                   "AllowedHosts": "*"
@@ -704,8 +704,8 @@
               ],
               "properties": {
                 "DefaultConnectionString": {
-                  //"value": "[concat('server=114.143.207.108;User Id=devuser;password=ROOT#123;database=wwi1;persistsecurityinfo=True')]",
-                  "value": "[concat('server=localhost;User Id=root;password=RooT@#31*;database=wwinewone;persistsecurityinfo=True')]",
+                  "value": "[concat('server=114.143.207.108;User Id=devuser;password=ROOT#123;database=wwimysql;persistsecurityinfo=True')]",
+                  //"value": "[concat('server=localhost;User Id=root;password=RooT@#31*;database=wwinewone;persistsecurityinfo=True')]",
                   //"value": "[concat('server=192.168.0.59;User Id=testuser;password=ROOT#123;database=wwibackup;persistsecurityinfo=True')]",
                   "type": "SQLAzure",
                   "AllowedHosts": "*"
