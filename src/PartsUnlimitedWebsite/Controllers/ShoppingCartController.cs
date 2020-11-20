@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using Microsoft.AspNetCore.Antiforgery;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Primitives;
@@ -68,7 +69,7 @@ namespace PartsUnlimited.Controllers
 
         //
         // GET: /ShoppingCart/AddToCart/5
-
+      
         public async Task<IActionResult> AddToCart(int id)
         {
             // Retrieve the product from the database
