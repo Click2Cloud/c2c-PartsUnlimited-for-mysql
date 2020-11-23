@@ -26,6 +26,7 @@ namespace PartsUnlimited.Controllers
         private readonly IPartsUnlimitedContext _db;
         private readonly UserManager<ApplicationUser> _userManager;
         
+        
 
         public CheckoutController(IPartsUnlimitedContext context, UserManager<ApplicationUser> userManager)
         {
@@ -83,7 +84,8 @@ namespace PartsUnlimited.Controllers
 
                     //Process the order
                     var cart = ShoppingCart.GetCart(_db, HttpContext);
-                    cart.CreateOrder(order);
+                    cart.CreateOrder(order); ;
+                   
 
                     // Save all changes
                     await _db.SaveChangesAsync(HttpContext.RequestAborted);
@@ -162,7 +164,10 @@ namespace PartsUnlimited.Controllers
                 _db.PaymentDetails.Add(paymentOrderDetails);
                 await _db.SaveChangesAsync(HttpContext.RequestAborted);
             }
-           
+
+            var cart = ShoppingCart.GetCart(_db, HttpContext);
+            cart.EmptyCart();
+
             var paymentTransactionDetails = new PaymentTransactionDetails
             {
                 CustomerTransactionId = Guid.NewGuid().ToString(),
@@ -177,7 +182,7 @@ namespace PartsUnlimited.Controllers
             };
 
             _db.PaymentTransactionDetails.Add(paymentTransactionDetails);
-            await _db.SaveChangesAsync(HttpContext.RequestAborted);
+            await _db.SaveChangesAsync(HttpContext.RequestAborted);        
 
 
 

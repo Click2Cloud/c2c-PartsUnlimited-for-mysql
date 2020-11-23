@@ -165,7 +165,7 @@ namespace PartsUnlimited.Models
             order.Total = orderTotal;
 
             // Empty the shopping cart
-            EmptyCart();
+            //EmptyCart();
 
             // Return the OrderId as the confirmation number
             return order.OrderId;
