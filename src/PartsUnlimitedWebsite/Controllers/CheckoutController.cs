@@ -131,7 +131,7 @@ namespace PartsUnlimited.Controllers
         public async Task<IActionResult> Charge(string stripeEmail, string stripeToken)
         {
             string LoginEmailId=HttpContext.Session.GetString("LoginEmail");
-            ApplicationUser applicationUser=_db.Users.Where(m => m.Email == LoginEmailId).Single();            
+            ApplicationUser applicationUser=_db.Users.Where(m => m.UserName == LoginEmailId).Single();            
             string SubTotalValue = "";
             decimal SubTotal = 0.00M;
             long PayAmount = 0;
