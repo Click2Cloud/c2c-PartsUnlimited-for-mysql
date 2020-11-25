@@ -45,39 +45,6 @@ namespace PartsUnlimited.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var DBPassword = new object();
-            var DBName = new object();
-            var DBSecurityInfo = new object();
-            var DBServerIP = new object();
-            var  DBUserId = new object();
-
-            IDictionary environmentVariables = Environment.GetEnvironmentVariables();
-            foreach (DictionaryEntry de in environmentVariables)
-            {
-                //Console.WriteLine("  {0} = {1}", de.Key, de.Value);
-                if (de.Key.ToString() == "PART_PASSWORD")
-                {
-                    DBPassword = de.Value;
-                }
-                if (de.Key.ToString() == "PART_DATABASE_NAME")
-                {
-                    DBName = de.Value;
-                }
-                if (de.Key.ToString() == "PART_SECURITY_INFO")
-                {
-                    DBSecurityInfo = de.Value;
-                }
-                if (de.Key.ToString() == "PART_SERVER_NAME")
-                {
-                    DBServerIP = de.Value;
-                }
-                if (de.Key.ToString() == "PART_USER_ID")
-                {
-                    DBUserId = de.Value;
-                }
-                
-            }
-
             if (!string.IsNullOrWhiteSpace(_connectionString))
             {
                 // optionsBuilder.UseSqlServer(_connectionString);

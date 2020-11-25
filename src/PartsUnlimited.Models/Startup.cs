@@ -45,28 +45,27 @@ namespace PartsUnlimited.Models
             foreach (DictionaryEntry de in environmentVariables)
             {
                 //Console.WriteLine("  {0} = {1}", de.Key, de.Value);
-                if (de.Key.ToString() == "PART_PASSWORD")
+                if (de.Key.ToString() == "WWI_PASSWORD")
                 {
                     DBPassword = de.Value;
                 }
-                if (de.Key.ToString() == "PART_DATABASE_NAME")
+                if (de.Key.ToString() == "WWI_DB_NAME")
                 {
                     DBName = de.Value;
                 }
-                if (de.Key.ToString() == "PART_SECURITY_INFO")
+                if (de.Key.ToString() == "WWI_SECURITY_INFO")
                 {
                     DBSecurityInfo = de.Value;
                 }
-                if (de.Key.ToString() == "PART_SERVER_NAME")
+                if (de.Key.ToString() == "WWI_SERVER_NAME")
                 {
                     DBServerIP = de.Value;
                 }
-                if (de.Key.ToString() == "PART_USER_ID")
+                if (de.Key.ToString() == "WWI_USER_NAME")
                 {
                     DBUserId = de.Value;
                 }
             }
-
 
             var sqlConnectionString = "server=" + DBServerIP + ";User Id=" + DBUserId + ";password=" + DBPassword + ";database=" + DBName + ";persistsecurityinfo=" + DBSecurityInfo + ";";
             //var sqlConnectionString =Configuration[ConfigurationPath.Combine("Data", "DefaultConnection", "ConnectionString")];
