@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using System.Collections;
 
 namespace PartsUnlimited.Models
 {
@@ -19,8 +20,8 @@ namespace PartsUnlimited.Models
         {
             //Below code demonstrates usage of multiple configuration sources. For instance a setting say 'setting1' is found in both the registered sources, 
             //then the later source will win. By this way a Local config can be overridden by a different setting while deployed remotely.
-              var builder = new ConfigurationBuilder()
-                .AddJsonFile("config.json")
+            var builder = new ConfigurationBuilder()
+              .AddJsonFile("config.json")
                 .AddJsonFile($"config.{env.EnvironmentName}.json", optional: true);
 
             if (env.IsDevelopment())
@@ -38,13 +39,45 @@ namespace PartsUnlimited.Models
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var sqlConnectionString = Configuration[ConfigurationPath.Combine("Data", "DefaultConnection", "ConnectionString")];
+            var DBPassword = new object(); var DBName = new object(); var DBSecurityInfo = new object(); var DBServerIP = new object(); var DBUserId = new object();
+
+            IDictionary environmentVariables = Environment.GetEnvironmentVariables();
+            foreach (DictionaryEntry de in environmentVariables)
+            {
+                //Console.WriteLine("  {0} = {1}", de.Key, de.Value);
+                if (de.Key.ToString() == "PART_PASSWORD")
+                {
+                    DBPassword = de.Value;
+                }
+                if (de.Key.ToString() == "PART_DATABASE_NAME")
+                {
+                    DBName = de.Value;
+                }
+                if (de.Key.ToString() == "PART_SECURITY_INFO")
+                {
+                    DBSecurityInfo = de.Value;
+                }
+                if (de.Key.ToString() == "PART_SERVER_NAME")
+                {
+                    DBServerIP = de.Value;
+                }
+                if (de.Key.ToString() == "PART_USER_ID")
+                {
+                    DBUserId = de.Value;
+                }
+            }
+
+
+            var sqlConnectionString = "server=" + DBServerIP + ";User Id=" + DBUserId + ";password=" + DBPassword + ";database=" + DBName + ";persistsecurityinfo=" + DBSecurityInfo + ";";
+            //var sqlConnectionString =Configuration[ConfigurationPath.Combine("Data", "DefaultConnection", "ConnectionString")];
+            //var sqlConnectionString = Configuration[ConfigurationPath.Combine("Data", "server=" + DBServerIP + ";User Id=" + DBUserId + ";password=" + DBPassword + ";database=" + DBName + ";persistsecurityinfo=" + DBSecurityInfo+";", "ConnectionString")];
             if (!String.IsNullOrEmpty(sqlConnectionString))
             {
                 services.AddEntityFrameworkSqlServer()
                       .AddDbContext<PartsUnlimitedContext>(options =>
                       {
-                          options.UseSqlServer(sqlConnectionString);
+                          //options.UseSqlServer(sqlConnectionString);
+                          options.UseMySql(sqlConnectionString);
                       });
             }
 

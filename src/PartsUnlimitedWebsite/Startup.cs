@@ -294,8 +294,7 @@ using PartsUnlimited.WebsiteConfiguration;
 using Microsoft.Extensions.Hosting;
 using System;
 using Stripe;
-
-
+using System.Collections;
 
 namespace PartsUnlimited
 {
@@ -312,10 +311,41 @@ namespace PartsUnlimited
 
         public void ConfigureServices(IServiceCollection services)
         {
+            var DBPassword = new object(); var DBName = new object(); var DBSecurityInfo = new object(); var DBServerIP = new object(); var DBUserId = new object();
+
+            IDictionary environmentVariables = Environment.GetEnvironmentVariables();
+            foreach (DictionaryEntry de in environmentVariables)
+            {
+                //Console.WriteLine("  {0} = {1}", de.Key, de.Value);
+                if (de.Key.ToString() == "PART_PASSWORD")
+                {
+                    DBPassword = de.Value;
+                }
+                if (de.Key.ToString() == "PART_DATABASE_NAME")
+                {
+                    DBName = de.Value;
+                }
+                if (de.Key.ToString() == "PART_SECURITY_INFO")
+                {
+                    DBSecurityInfo = de.Value;
+                }
+                if (de.Key.ToString() == "PART_SERVER_NAME")
+                {
+                    DBServerIP = de.Value;
+                }
+                if (de.Key.ToString() == "PART_USER_ID")
+                {
+                    DBUserId = de.Value;
+                }
+
+            }
+
             service = services;
             //If this type is present - we're on mono
             var runningOnMono = Type.GetType("Mono.Runtime") != null;
-            var sqlConnectionString = Configuration[ConfigurationPath.Combine("ConnectionStrings", "DefaultConnectionString")];
+            //var sqlConnectionString = Configuration[ConfigurationPath.Combine("ConnectionStrings", "DefaultConnectionString")];
+            //var sqlConnectionString = Configuration[ConfigurationPath.Combine("server=" + DBServerIP + ";User Id=" + DBUserId + ";password=" + DBPassword + ";database=" + DBName + ";persistsecurityinfo=" + DBSecurityInfo + ";", "DefaultConnectionString")];
+            var sqlConnectionString = "server="+ DBServerIP + ";User Id=" + DBUserId + ";password=" + DBPassword + ";database=" + DBName + ";persistsecurityinfo=" + DBSecurityInfo + ";";
             var useInMemoryDatabase = string.IsNullOrWhiteSpace(sqlConnectionString);
 
             if (useInMemoryDatabase || runningOnMono)

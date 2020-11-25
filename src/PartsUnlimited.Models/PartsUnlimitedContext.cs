@@ -3,12 +3,15 @@
 
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections;
 
 namespace PartsUnlimited.Models
 {
     public class PartsUnlimitedContext : IdentityDbContext<ApplicationUser>, IPartsUnlimitedContext
     {
-        private readonly string _connectionString;
+        
+        private readonly string _connectionString;        
 
         public PartsUnlimitedContext(string connectionString)
         {
@@ -36,20 +39,50 @@ namespace PartsUnlimited.Models
             builder.Entity<Raincheck>().HasKey(o => o.RaincheckId);
             builder.Entity<Store>().HasKey(o => o.StoreId);
             builder.Entity<PaymentDetails>().HasKey(p => p.PaymentDetailsID);
-            builder.Entity<PaymentTransactionDetails>().HasKey(t => t.TransactionId);            
-
-
-
+            builder.Entity<PaymentTransactionDetails>().HasKey(t => t.TransactionId);
             base.OnModelCreating(builder);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            var DBPassword = new object();
+            var DBName = new object();
+            var DBSecurityInfo = new object();
+            var DBServerIP = new object();
+            var  DBUserId = new object();
+
+            IDictionary environmentVariables = Environment.GetEnvironmentVariables();
+            foreach (DictionaryEntry de in environmentVariables)
+            {
+                //Console.WriteLine("  {0} = {1}", de.Key, de.Value);
+                if (de.Key.ToString() == "PART_PASSWORD")
+                {
+                    DBPassword = de.Value;
+                }
+                if (de.Key.ToString() == "PART_DATABASE_NAME")
+                {
+                    DBName = de.Value;
+                }
+                if (de.Key.ToString() == "PART_SECURITY_INFO")
+                {
+                    DBSecurityInfo = de.Value;
+                }
+                if (de.Key.ToString() == "PART_SERVER_NAME")
+                {
+                    DBServerIP = de.Value;
+                }
+                if (de.Key.ToString() == "PART_USER_ID")
+                {
+                    DBUserId = de.Value;
+                }
+                
+            }
 
             if (!string.IsNullOrWhiteSpace(_connectionString))
             {
                 // optionsBuilder.UseSqlServer(_connectionString);
                 optionsBuilder.UseMySql(_connectionString,b=>b.MigrationsAssembly("PartsUnlimitedWebsite"));
+                //optionsBuilder.UseMySql("server="+ DBServerIP+";User Id="+ DBUserId + ";password="+ DBPassword + ";database="+ DBName + ";persistsecurityinfo="+ DBSecurityInfo + ";", b => b.MigrationsAssembly("PartsUnlimitedWebsite"));
 
             }
             else
